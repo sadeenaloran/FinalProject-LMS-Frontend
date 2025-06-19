@@ -1,0 +1,46 @@
+/* Admin Dashboard specific styles */
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-main-content {
+  flex-grow: 1;
+  padding: 24px;
+  margin-left: 240px;
+  transition: margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+}
+
+.admin-main-content.shifted {
+  margin-left: 0;
+}
+
+.stat-card {
+  padding: 20px;
+  height: 100%;
+  border-left: 4px solid;
+}
+
+.stat-icon {
+  background-color: rgba(25, 118, 210, 0.1);
+  color: #1976d2;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .admin-main-content {
+    margin-left: 0;
+  }
+}
