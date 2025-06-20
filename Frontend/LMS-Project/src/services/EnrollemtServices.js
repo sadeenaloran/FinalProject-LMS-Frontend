@@ -72,19 +72,6 @@ const EnrollmentService = {
       throw new Error(error.response?.data?.message || "Failed to enroll");
     }
   },
-
-  getEnrollment: async (enrollmentId) => {
-    try {
-      const response = await api.get(
-        API_ENDPOINTS.ENROLLMENTS.GET_ENROLLMENT.replace(':id', enrollmentId)
-      );
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching enrollment:', error);
-      throw error;
-    }
-  },
-
   getUserEnrollments: async () => {
     try {
       const response = await api.get(
@@ -96,29 +83,11 @@ const EnrollmentService = {
       return [];
     }
   },
-  getCourseProgressDetails: async (courseId, userId) => {
+  getCourseProgressDetails: async (enrollmentId) => {
     try {
-      // 1. First get user's enrollment for this course
-      const enrollmentsResponse = await api.get(
-              API_ENDPOINTS.ENROLLMENTS.GET_PROGRESS_DETAILS.replace(':id')
-      );
-
-      // Handle different response structures
-      const enrollments = Array.isArray(enrollmentsResponse.data)
-        ? enrollmentsResponse.data
-        : enrollmentsResponse.data?.enrollments || [];
-
-      const enrollment = enrollments.find((e) => e.course_id == courseId);
-
-      if (!enrollment) {
-        throw new Error("User is not enrolled in this course");
-      }
-
-      // 2. Get progress for this enrollment
-      const progressResponse = await api.get(
-        API_ENDPOINTS.ENROLLMENTS.GET_PROGRESS.replace(":id", enrollment.id),
+      const response = await api.get(
+        API_ENDPOINTS.ENROLLMENTS.GET_PROGRESS.replace(":id", enrollmentId),
         {
-          params: { userId },
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
@@ -126,70 +95,52 @@ const EnrollmentService = {
       );
 
       return {
-        ...progressResponse.data,
-        enrollmentId: enrollment.id,
+        ...response.data,
+        enrollmentId,
       };
     } catch (error) {
       console.error("Progress fetch error:", {
-        courseId,
+        enrollmentId,
         error: error.response?.data || error.message,
         status: error.response?.status,
       });
 
-      // More specific error handling
-      if (error.response?.status === 400) {
-        throw new Error("Invalid request - please check your parameters");
-      } else if (error.response?.status === 401) {
-        throw new Error("Authentication required");
-      } else {
-        throw error;
-      }
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch progress"
+      );
+    }
+  },
+  markLessonCompleted: async (lessonId) => {
+    try {
+      const response = await api.post(
+        API_ENDPOINTS.ENROLLMENTS.MARK_LESSON_COMPLETE,
+        { lessonId },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error marking lesson complete:", error);
+      throw error;
     }
   },
   getProgressSummary: async (courseId) => {
     try {
-      const token = localStorage.getItem("access-token");
       const response = await api.get(
-        API_ENDPOINTS.ENROLLMENTS.PROGRESS_SUMMARY.replace(":Id", courseId),
+        `/enrollments/course/${courseId}/summary`,
         {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
         }
       );
       return response.data;
     } catch (error) {
       console.error("Error fetching progress summary:", error);
-      throw error;
-    }
-  },
-
-  // markLessonCompleted: async (lessonId) => {
-  //   try {
-  //     const response = await api.post(
-  //       API_ENDPOINTS.ENROLLMENTS.COMPLETE_LESSON,
-  //       { lessonId }
-  //     );
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error("Error marking lesson complete:", error);
-  //     throw error;
-  //   }
-  // },
-
-  markLessonCompleted: async (lessonId) => {
-    try {
-      const response = await api.post(
-        API_ENDPOINTS.ENROLLMENTS.MARK_LESSON_COMPLETE,
-        {
-          lessonId,
-        }
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error marking lesson completed:", error);
-      throw error;
+      return { summary: { overallProgress: 0 } };
     }
   },
 };

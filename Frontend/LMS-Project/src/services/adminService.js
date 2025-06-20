@@ -70,7 +70,7 @@ import { API_ENDPOINTS } from "../constants/ApiEndpoints";
 const adminService = {
   getAllUsers: async () => {
     try {
-      const token = localStorage.getItem("access-token");
+      const token = localStorage.getItem("token");
       if (!token || token === "undefined") {
         throw new Error("Access token is missing or invalid");
       }
@@ -100,7 +100,7 @@ const adminService = {
 
   addUser: async (userData) => {
     try {
-      const token = localStorage.getItem("access-token");
+      const token = localStorage.getItem("token");
       const response = await api.post(API_ENDPOINTS.ADMIN.ADD_USER, userData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -134,7 +134,7 @@ const adminService = {
 
   updateUser: async (userId, updatedData) => {
     try {
-      const token = localStorage.getItem("access-token");
+      const token = localStorage.getItem("token");
       const response = await api.put(
         `${API_ENDPOINTS.ADMIN.UPDATE_USER}/${userId}`,
         updatedData,
@@ -161,7 +161,7 @@ const adminService = {
 
   deleteUser: async (userId) => {
     try {
-      const token = localStorage.getItem("access-token");
+      const token = localStorage.getItem("token");
       const response = await api.delete(
         `${API_ENDPOINTS.ADMIN.DELETE_USER}/${userId}`,
         {
