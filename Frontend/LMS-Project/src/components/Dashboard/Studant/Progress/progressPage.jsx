@@ -100,11 +100,11 @@ const ProgressPage = () => {
           </Typography>
           <LinearProgress
             variant="determinate"
-            value={progress?.progress || 0}
+            value={progress?.overallProgress || 0}
             sx={{ height: 10, mb: 2 }}
           />
           <Typography>
-            {Math.round(progress?.progress || 0)}% Complete
+            {Math.round(progress?.overallProgress || 0)}% Complete
           </Typography>
         </CardContent>
       </Card>

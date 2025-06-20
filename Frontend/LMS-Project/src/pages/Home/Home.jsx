@@ -6,13 +6,14 @@ import {
   Grid,
   Paper,
 } from "@mui/material";
+
 import { Link } from "react-router-dom";
 import SchoolIcon from "@mui/icons-material/School";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import PeopleIcon from "@mui/icons-material/People";
 import Header from "@components/common/Header/Header";
 import Footer from "@components/common/Footer/Footer";
-import UserHeader from "../../components/common/Header/UserHeader"; 
+
 const Home = () => {
   const features = [
     {
@@ -44,31 +45,67 @@ const Home = () => {
 
   return (
     <>
-      <Header/>
-      <Container maxWidth="lg" sx={{ textAlign: "center", mt: 10 }}>
-        <Typography variant="h3" gutterBottom>
+      <Header />
+      <Container maxWidth="lg" sx={{ 
+        textAlign: "center", 
+        mt: { xs: 4, sm: 6, md: 10 },
+        px: { xs: 2, sm: 3, md: 4 }
+      }}>
+        <Typography variant="h3" gutterBottom sx={{ 
+          fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+          color: 'primary.main'
+        }}>
           Welcome to Lernix 📚
         </Typography>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom sx={{ 
+          fontSize: { xs: '1rem', sm: '1.25rem' },
+          color: 'text.secondary',
+          mb: 4
+        }}>
           Transform your learning journey with our comprehensive online learning
           management system. Access courses, track progress, and achieve your
           educational goals.
         </Typography>
 
-        <Box sx={{ mt: 4, display: "flex", justifyContent: "center", gap: 2 }}>
-          <Button variant="contained" component={Link} to="/login">
+        <Box sx={{ 
+          mt: 4, 
+          display: "flex", 
+          justifyContent: "center", 
+          gap: 2,
+          flexDirection: { xs: 'column', sm: 'row' }
+        }}>
+          <Button 
+            variant="contained" 
+            component={Link} 
+            to="/login"
+            size="large"
+            sx={{
+              bgcolor: 'primary.light',
+              '&:hover': { bgcolor: 'primary.main' }
+            }}
+          >
             Get started
           </Button>
-          <Button variant="outlined" component={Link} to="/register">
+          <Button 
+            variant="outlined" 
+            component={Link} 
+            to="/register"
+            size="large"
+            sx={{
+              color: 'primary.main',
+              borderColor: 'primary.light',
+              '&:hover': { borderColor: 'primary.main' }
+            }}
+          >
             New Account
           </Button>
         </Box>
 
         {/* Features Section */}
-        <Box sx={{ mt: 10 }}>
-          <Grid container  spacing={4} justifyContent="center">
+        <Box sx={{ mt: { xs: 6, md: 10 } }}>
+          <Grid container spacing={4} justifyContent="center">
             {features.map((feature, index) => (
-              <Grid item xs={12} md={4} xl={4} key={index}>
+              <Grid item xs={12} sm={6} md={4} key={index}>
                 <Paper
                   elevation={3}
                   sx={{
@@ -81,20 +118,22 @@ const Home = () => {
                     animation: "fadeIn 0.5s ease",
                     animationDelay: `${index * 0.3}s`,
                     animationFillMode: "both",
+                    bgcolor: 'primary.50',
                     "&:hover": {
                       transform: "translateY(-5px)",
                       boxShadow: 6,
+                      bgcolor: 'primary.100'
                     },
                   }}
                 >
                   <Box sx={{ flexGrow: 1 }}>
-                  {feature.icon}
-                  <Typography variant="h6" sx={{ mt: 2, mb: 1 }}>
-                    {feature.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {feature.description}
-                  </Typography>
+                    {feature.icon}
+                    <Typography variant="h6" sx={{ mt: 2, mb: 1, color: 'primary.dark' }}>
+                      {feature.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {feature.description}
+                    </Typography>
                   </Box>
                 </Paper>
               </Grid>
@@ -105,43 +144,74 @@ const Home = () => {
         {/* Stats Section */}
         <Box
           sx={{
-            mt: 8,
-            mb: 8,
-            p: 4,
+            mt: { xs: 6, md: 8 },
+            mb: { xs: 4, md: 8 },
+            p: { xs: 2, md: 4 },
             display: "flex",
             justifyContent: "space-between",
             flexWrap: "wrap",
-            border: "1px solid #e0e0e0",
+            border: "1px solid",
+            borderColor: 'primary.100',
             borderRadius: 2,
             maxWidth: "1000px",
             mx: "auto",
+            bgcolor: 'primary.50'
           }}
         >
           {stats.map((stat, index) => (
-            <Box key={index} sx={{ textAlign: "center", m: 2 }}>
+            <Box key={index} sx={{ 
+              textAlign: "center", 
+              m: { xs: 1, md: 2 },
+              width: { xs: '45%', sm: 'auto' }
+            }}>
               <Typography variant="h5" color="primary" fontWeight="bold">
                 {stat.number}
               </Typography>
-              <Typography variant="body2">{stat.label}</Typography>
+              <Typography variant="body2" sx={{ color: 'primary.dark' }}>
+                {stat.label}
+              </Typography>
             </Box>
           ))}
         </Box>
 
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h3" gutterBottom sx={{ 
+          fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' },
+          color: 'primary.main',
+          mt: { xs: 4, md: 6 }
+        }}>
           Ready to Start Learning?
         </Typography>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom sx={{ 
+          fontSize: { xs: '1rem', sm: '1.25rem' },
+          color: 'text.secondary',
+          mb: 4
+        }}>
           Join thousands of learners who are already advancing their careers
-          with EduLearn
+          with Lernix
         </Typography>
 
-        <Box sx={{ mt: 4, display: "flex", justifyContent: "center", gap: 2 }}>
-          <Button variant="contained" component={Link} to="/login">
+        <Box sx={{ 
+          mt: 4, 
+          display: "flex", 
+          justifyContent: "center", 
+          gap: 2,
+          mb: { xs: 4, md: 6 }
+        }}>
+          <Button 
+            variant="contained" 
+            component={Link} 
+            to="/login"
+            size="large"
+            sx={{
+              bgcolor: 'primary.light',
+              '&:hover': { bgcolor: 'primary.main' }
+            }}
+          >
             Sign In to Continue
           </Button>
         </Box>
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 };

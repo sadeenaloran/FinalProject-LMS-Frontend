@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-//           startIcon={<GoogleIcon />}
 
 import {
   Box,
@@ -39,11 +38,11 @@ const LoginForm = () => {
     setLoading(true);
     try {
       await login({ email, password });
-      if (user.role === "student") {
+      if (user?.role === "student") {
         navigate("/student/dashboard");
-      } else if (user.role === "admin") {
+      } else if (user?.role === "admin") {
         navigate("/admin/dashboard");
-       } else if (user.role === "instructor") {
+       } else if (user?.role === "instructor") {
         navigate("/instructor/dashboard");
       } else {
         navigate("/unauthorized");

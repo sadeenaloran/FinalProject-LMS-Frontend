@@ -1,22 +1,21 @@
 import { useMemo, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, CssBaseline, IconButton } from "@mui/material";
-import { createAppTheme } from "@/styles/theme";
+import { createAppTheme } from "./assets/styles/theme";
 import { AuthProvider } from "@contexts/AuthContext";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import GoogleAuth from "@/components/auth/GoogleAuth";
-import Profile from "@components/user/Profile";
+import Profile from "./components/common/Profile/Profile";
 import ProtectedRoute from "@components/common/ProtectedRoute/ProtectedRoute.jsx";
 import GoogleAuthCallback from "@components/auth/GoogleAuth.jsx";
 import Home from "@pages/Home/Home.jsx";
 import About from "@pages/About/About.jsx";
+import Contact from "@/pages/ContactUs/ContactUs";
 import AdminDashboard from "./pages/Dashboard/AdminDashboard";
+import InstructorRoutes from "./Router/InstructorRoutes";
 import StudentDashboard from "./pages/Dashboard/StudentDashboard";
-import Unauthorized from "@components/common/Unauthorized";
-// import CourseForm from "@/components/instructor/InstructorCourses/CourseForm";
-// import CourseDetails from "./components/instructor/InstructorCourses/Mycourses";
-// import CourseDetailsDialog from "./pages/Student/MyCourses/CourseDetailsDialog";
+import Unauthorized from "./components/common/ProtectedRoute/Unauthorized";
 import LoginPage from "./pages/auth/LoginPage/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage/RegisterPage";
 
@@ -34,15 +33,15 @@ function App() {
       <CssBaseline />
       <Router>
         <AuthProvider>
-          <div style={{ position: "fixed", top: 10, right: 10, zIndex: 999 }}>
+          <div style={{ position: "fixed", top: 80, right: 16, zIndex: 1400 }}>
             <IconButton onClick={toggleMode} color="inherit">
               {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
             </IconButton>
           </div>
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/About" element={<About />} />
+            <Route path="/Contact" element={<Contact />} />
 
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -55,61 +54,23 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile />} />
             </Route>
+
+            {/* Admin Routes */}
             <Route element={<ProtectedRoute roles={["admin"]} />}>
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
             </Route>
+
             {/* Instructor Routes */}
-            {/* <Route
-              path="/instructor/dashboard"
-              element={
-                <ProtectedRoute roles={["instructor"]}>
-                  <InstructorDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/instructor/courses"
-              element={
-                <ProtectedRoute roles={["instructor"]}>
-                  <InstructorCourses />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/instructor/courses/new"
-              element={
-                <ProtectedRoute roles={["instructor"]}>
-                  <CourseForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/instructor/courses/:id"
-              element={
-                <ProtectedRoute roles={["instructor"]}>
-                  <CourseDetails />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/instructor/courses/:id/edit"
-              element={
-                <ProtectedRoute roles={["instructor"]}>
-                  <CourseForm />
-                </ProtectedRoute>
-              }
-            /> */}
-            <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route element={<ProtectedRoute roles={["instructor"]} />}>
+              <Route path="/instructor/dashboard/*" element={<InstructorRoutes />} />
+            </Route>
+
+            {/* Student Routes */}
             <Route element={<ProtectedRoute roles={["student"]} />}>
               <Route path="/student/dashboard" element={<StudentDashboard />} />
-              {/* <Route path="/courses" element={<StudentCourses />} /> */}
-              {/* <Route path="/courses/:id" element={<CourseDetails />} /> */}
-              {/* <Route
-                path="/student/dashboard/CourseDetailsDialog"
-                element={<CourseDetailsDialog />}
-              /> */}
             </Route>
-            {/* <Route path="/assignment/:id" element={<AssignmentDetail />} /> */}
+            <Route path="/unauthorized" element={<Unauthorized />} />
+            
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
         </AuthProvider>

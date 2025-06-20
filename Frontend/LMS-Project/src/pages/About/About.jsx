@@ -6,6 +6,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import SmartToyIcon from "@mui/icons-material/SmartToy"; 
 import Header from "@components/common/Header/Header";
 import Footer from "@components/common/Footer/Footer";
+// import AboutImage from "../../assets/images/aboutimage"
 const About = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -31,9 +32,12 @@ const About = () => {
             }}
           >
             {/* Placeholder for your image - replace with your actual image component */}
-            <Typography variant="body1" color="text.secondary">
-              [AI Learning Platform Illustration]
-            </Typography>
+            {/* <img
+                src={AboutImage}
+                alt="LMS aboutimage"
+                width={500}
+                height={500}
+              /> */}
           </Box>
         </Grid>
 
