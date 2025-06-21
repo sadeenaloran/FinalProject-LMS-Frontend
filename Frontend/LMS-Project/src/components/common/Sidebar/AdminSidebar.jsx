@@ -1,355 +1,4 @@
-// import React from "react";
-// import {
-//   Drawer,
-//   List,
-//   ListItem,
-//   ListItemIcon,
-//   ListItemText,
-//   Divider,
-//   Toolbar, // <-- Add this import
-// } from "@mui/material";
-// import {
-//   Dashboard as DashboardIcon,
-//   People as PeopleIcon,
-//   School as SchoolIcon,
-//   BarChart as BarChartIcon,
-//   Settings as SettingsIcon,
-// } from "@mui/icons-material";
-
-// const drawerWidth = 240;
-
-// const AdminSidebar = ({ activeTab, setActiveTab }) => {
-//   const menuItems = [
-//     { text: "Dashboard", icon: <DashboardIcon />, tab: "dashboard" },
-//     { text: "User Management", icon: <PeopleIcon />, tab: "users" },
-//     { text: "Course Management", icon: <SchoolIcon />, tab: "courses" }, // This should match the switch case
-//     { text: "Reports", icon: <BarChartIcon />, tab: "reports" },
-//     { text: "Settings", icon: <SettingsIcon />, tab: "settings" },
-//   ];
-
-//   return (
-//     <Drawer
-//       sx={{
-//         width: drawerWidth,
-//         flexShrink: 0,
-//         "& .MuiDrawer-paper": {
-//           width: drawerWidth,
-//           boxSizing: "border-box",
-//         },
-//       }}
-//       variant="permanent"
-//       anchor="left"
-//     >
-//       <Toolbar /> {/* This creates space below the AppBar */}
-//       <Divider />
-//       <List>
-//         {menuItems.map((item) => (
-//           <ListItem
-//             button
-//             key={item.text}
-//             selected={activeTab === item.tab}
-//             onClick={() => setActiveTab(item.tab)}
-//           >
-//             <ListItemIcon>{item.icon}</ListItemIcon>
-//             <ListItemText primary={item.text} />
-//           </ListItem>
-//         ))}
-//       </List>
-//     </Drawer>
-//   );
-// };
-
-// export default AdminSidebar;
-
-// import React from "react";
-// import {
-//   Drawer,
-//   List,
-//   ListItem,
-//   ListItemIcon,
-//   ListItemText,
-//   Divider,
-//   Toolbar,
-//   useTheme,
-//   useMediaQuery,
-// } from "@mui/material";
-// import {
-//   Dashboard as DashboardIcon,
-//   People as PeopleIcon,
-//   School as SchoolIcon,
-//   BarChart as BarChartIcon,
-//   Settings as SettingsIcon,
-//   ExitToApp as LogoutIcon,
-//   Class as ClassIcon,
-// } from "@mui/icons-material";
-// import { useAuth } from "../../../contexts/AuthContext"; // Adjust path as needed
-
-// const drawerWidth = 240;
-
-// const AdminSidebar = ({
-//   activeTab,
-//   setActiveTab,
-//   mobileOpen,
-//   handleDrawerToggle,
-// }) => {
-//   const theme = useTheme();
-//   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-//   const { logout } = useAuth(); // Get logout function from your auth context
-
-//   const menuItems = [
-//     { text: "Dashboard", icon: <DashboardIcon />, tab: "dashboard" },
-//     { text: "User Management", icon: <PeopleIcon />, tab: "users" },
-//     { text: "Course Management", icon: <SchoolIcon />, tab: "courses" },
-//     { text: "Category Management", icon: <ClassIcon  />, tab: "categories" },
-//     { text: "Reports", icon: <BarChartIcon />, tab: "reports" },
-//     { text: "Settings", icon: <SettingsIcon />, tab: "settings" },
-//   ];
-
-//   return (
-//     <Drawer
-//       sx={{
-//         width: drawerWidth,
-//         flexShrink: 0,
-//         "& .MuiDrawer-paper": {
-//           width: drawerWidth,
-//           boxSizing: "border-box",
-//           backgroundColor: theme.palette.background.paper,
-//           [theme.breakpoints.down("sm")]: {
-//             width: mobileOpen ? drawerWidth : 0,
-//           },
-//         },
-//       }}
-//       variant={isMobile ? "temporary" : "permanent"}
-//       anchor="left"
-//       open={isMobile ? mobileOpen : true}
-//       onClose={handleDrawerToggle}
-//       ModalProps={{
-//         keepMounted: true, // Better open performance on mobile
-//       }}
-//     >
-//       <List>
-//         {menuItems.map((item) => (
-//           <ListItem
-//             button
-//             key={item.text}
-//             selected={activeTab === item.tab}
-//             onClick={() => {
-//               setActiveTab(item.tab);
-//               if (isMobile) handleDrawerToggle(); // Close drawer on mobile after selection
-//             }}
-//             sx={{
-//               "&.Mui-selected": {
-//                 backgroundColor: theme.palette.action.selected,
-//                 "&:hover": {
-//                   backgroundColor: theme.palette.action.selected,
-//                 },
-//               },
-//             }}
-//           >
-//             <ListItemIcon
-//               sx={{
-//                 color:
-//                   activeTab === item.tab
-//                     ? theme.palette.primary.main
-//                     : "inherit",
-//               }}
-//             >
-//               {item.icon}
-//             </ListItemIcon>
-//             <ListItemText
-//               primary={item.text}
-//               primaryTypographyProps={{
-//                 fontWeight: activeTab === item.tab ? "medium" : "normal",
-//               }}
-//             />
-//           </ListItem>
-//         ))}
-//       </List>
-//       <Divider />
-//       <List>
-//         <ListItem button onClick={logout}>
-//           <ListItemIcon>
-//             <LogoutIcon />
-//           </ListItemIcon>
-//           <ListItemText primary="Logout" />
-//         </ListItem>
-//       </List>
-//     </Drawer>
-//   );
-// };
-
-// export default AdminSidebar;
-
-// import React from "react";
-// import {
-//   Drawer,
-//   List,
-//   ListItem,
-//   ListItemIcon,
-//   ListItemText,
-//   Divider,
-//   Toolbar,
-//   useTheme,
-//   useMediaQuery,
-//   Avatar,
-//   Box,
-//   Typography
-// } from "@mui/material";
-// import {
-//   Dashboard as DashboardIcon,
-//   People as PeopleIcon,
-//   School as SchoolIcon,
-//   BarChart as BarChartIcon,
-//   Settings as SettingsIcon,
-//   ExitToApp as LogoutIcon,
-//   Class as ClassIcon,
-// } from "@mui/icons-material";
-// import { useAuth } from "../../../contexts/AuthContext";
-
-// const drawerWidth = 240;
-
-// const AdminSidebar = ({
-//   activeTab,
-//   setActiveTab,
-//   mobileOpen,
-//   handleDrawerToggle,
-// }) => {
-//   const theme = useTheme();
-//   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-//   const { logout, user } = useAuth();
-
-//   const menuItems = [
-//     { text: "Dashboard", icon: <DashboardIcon />, tab: "dashboard" },
-//     { text: "User Management", icon: <PeopleIcon />, tab: "users" },
-//     { text: "Course Management", icon: <SchoolIcon />, tab: "courses" },
-//     { text: "Category Management", icon: <ClassIcon />, tab: "categories" },
-//     { text: "Reports", icon: <BarChartIcon />, tab: "reports" },
-//     { text: "Settings", icon: <SettingsIcon />, tab: "settings" },
-//   ];
-
-//   return (
-//     <Drawer
-//       sx={{
-//         width: drawerWidth,
-//         flexShrink: 0,
-//         "& .MuiDrawer-paper": {
-//           width: drawerWidth,
-//           boxSizing: "border-box",
-//           backgroundColor: '#f8fafc',
-//           backgroundImage: 'linear-gradient(to bottom, #f8fafc 0%, #e6f0ff 100%)',
-//           borderRight: '1px solid rgba(145, 185, 255, 0.3)',
-//           [theme.breakpoints.down("sm")]: {
-//             width: mobileOpen ? drawerWidth : 0,
-//           },
-//         },
-//       }}
-//       variant={isMobile ? "temporary" : "permanent"}
-//       anchor="left"
-//       open={isMobile ? mobileOpen : true}
-//       onClose={handleDrawerToggle}
-//       ModalProps={{
-//         keepMounted: true,
-//       }}
-//     >
-//       <Box sx={{ 
-//         p: 2, 
-//         display: 'flex', 
-//         alignItems: 'center', 
-//         gap: 2,
-//         borderBottom: '1px solid rgba(145, 185, 255, 0.3)'
-//       }}>
-//         <Avatar sx={{ 
-//           bgcolor: 'primary.light',
-//           color: 'primary.dark',
-//           width: 48,
-//           height: 48
-//         }}>
-//           {user?.name?.charAt(0) || 'A'}
-//         </Avatar>
-//         <Box>
-//           <Typography variant="subtitle1" fontWeight={500}>
-//             {user?.name || 'Admin'}
-//           </Typography>
-//           <Typography variant="body2" color="text.secondary">
-//             Administrator
-//           </Typography>
-//         </Box>
-//       </Box>
-
-//       <List sx={{ p: 1 }}>
-//         {menuItems.map((item) => (
-//           <ListItem
-//             button
-//             key={item.text}
-//             selected={activeTab === item.tab}
-//             onClick={() => {
-//               setActiveTab(item.tab);
-//               if (isMobile) handleDrawerToggle();
-//             }}
-//             sx={{
-//               borderRadius: 1,
-//               mb: 0.5,
-//               "&.Mui-selected": {
-//                 backgroundColor: 'primary.50',
-//                 "&:hover": {
-//                   backgroundColor: 'primary.50',
-//                 },
-//               },
-//               "&:hover": {
-//                 backgroundColor: 'primary.100',
-//               },
-//             }}
-//           >
-//             <ListItemIcon
-//               sx={{
-//                 color: activeTab === item.tab ? 'primary.main' : 'text.secondary',
-//                 minWidth: 40
-//               }}
-//             >
-//               {item.icon}
-//             </ListItemIcon>
-//             <ListItemText
-//               primary={item.text}
-//               primaryTypographyProps={{
-//                 fontWeight: activeTab === item.tab ? 600 : 400,
-//                 color: activeTab === item.tab ? 'primary.dark' : 'text.primary',
-//                 fontSize: '0.9rem'
-//               }}
-//             />
-//           </ListItem>
-//         ))}
-//       </List>
-//       <Divider sx={{ borderColor: 'rgba(145, 185, 255, 0.3)' }} />
-//       <List sx={{ p: 1 }}>
-//         <ListItem 
-//           button 
-//           onClick={logout}
-//           sx={{
-//             borderRadius: 1,
-//             "&:hover": {
-//               backgroundColor: 'error.50',
-//             },
-//           }}
-//         >
-//           <ListItemIcon sx={{ color: 'error.main', minWidth: 40 }}>
-//             <LogoutIcon />
-//           </ListItemIcon>
-//           <ListItemText 
-//             primary="Logout" 
-//             primaryTypographyProps={{
-//               color: 'error.main',
-//               fontWeight: 500
-//             }} 
-//           />
-//         </ListItem>
-//       </List>
-//     </Drawer>
-//   );
-// };
-
-// export default AdminSidebar;
-
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Drawer,
   List,
@@ -435,10 +84,12 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    overflowX: 'hidden',
+    overflowX: "hidden",
+    top: "69px",
     width: drawerWidth,
-    [theme.breakpoints.down('sm')]: {
-      position: 'absolute',
+    [theme.breakpoints.down("sm")]: {
+      position: "absolute",
+      height: "100%",
       zIndex: theme.zIndex.drawer + 1,
     },
   },
@@ -447,9 +98,11 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: 'hidden',
+     overflowX: "hidden",
+    top: "69px",
+    height: "100%",
     width: collapsedWidth,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       width: 0,
     },
   },
@@ -476,7 +129,7 @@ const AdminSidebar = ({ activeTab, setActiveTab }) => {
       {isMobile && (
         <Toolbar sx={{ 
           position: 'fixed',
-          top: 0,
+          top: 10,
           left: 0,
           zIndex: theme.zIndex.drawer - 1,
           bgcolor: 'background.paper',
@@ -487,7 +140,6 @@ const AdminSidebar = ({ activeTab, setActiveTab }) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2 }}
           >
             <Menu />
           </IconButton>
@@ -514,7 +166,6 @@ const AdminSidebar = ({ activeTab, setActiveTab }) => {
           <Box sx={{ 
             display: 'flex', 
             justifyContent: 'flex-end', 
-            p: 1,
             borderBottom: '1px solid rgba(145, 185, 255, 0.3)'
           }}>
             <IconButton onClick={handleDrawerToggle}>

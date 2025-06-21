@@ -180,164 +180,75 @@
 
 // export default FileUpload;
 
-
-import React, { useState } from "react";
-import {
-  Button,
-  Box,
-  Typography,
-  CircularProgress,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  IconButton,
-} from "@mui/material";
+import React from "react";
+import { Button, Box, CircularProgress, Typography } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import ClearIcon from "@mui/icons-material/Clear";
- 
+
 const FileUpload = ({
-  onFileUpload, // This should accept the secure_url from Cloudinary
-  accept = "image/*",
+  accept,
+  label,
+  onFileUpload,
   disabled = false,
-  label = "Upload Thumbnail",
-  currentFileUrl = null, // For showing existing thumbnail
+  currentFileUrl = null,
+  fileType = "file",
 }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const [error, setError] = useState(null);
- 
-  const handleFileChange = async (e) => {
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (!file) return;
- 
-    // Reset previous errors
-    setError(null);
- 
-    // Validate file
-    if (!file.type.startsWith("image/")) {
-      setError("Only image files are allowed");
-      return;
-    }
- 
-    if (file.size > 5 * 1024 * 1024) {
-      // 5MB limit
-      setError("File size must be less than 5MB");
-      return;
-    }
- 
-    setSelectedFile(file);
-    setIsUploading(true);
- 
-    try {
-      const formData = new FormData();
-      formData.append("file", file); // Matches your multer.single('file') config
- 
-      const response = await fetch("/api/attachments/upload", {
-        method: "POST",
-        body: formData,
-        // Don't set Content-Type header - let browser set it with boundary
-      });
- 
-      if (!response.ok) {
-        throw new Error((await response.text()) || "Upload failed");
-      }
- 
-      const data = await response.json();
- 
-      if (data.attachment && data.attachment.secure_url) {
-        onFileUpload(data.attachment.secure_url); // Pass the URL to parent
-      } else {
-        throw new Error("Invalid response from server");
-      }
-    } catch (err) {
-      setError(err.message);
-      setSelectedFile(null);
-    } finally {
-      setIsUploading(false);
+    if (file) {
+      onFileUpload(file);
     }
   };
- 
-  const handleRemoveFile = () => {
-    setSelectedFile(null);
-    onFileUpload(null); // Notify parent to remove the thumbnail
-  };
- 
+
   return (
     <Box sx={{ mb: 2 }}>
       <input
         accept={accept}
         style={{ display: "none" }}
-        id="file-upload-input"
+        id={`file-upload-${label.replace(/\s+/g, "-")}`}
         type="file"
         onChange={handleFileChange}
-        disabled={disabled || isUploading}
+        disabled={disabled}
       />
- 
-      {!selectedFile && !currentFileUrl ? (
-        <label htmlFor="file-upload-input">
-          <Button
-            component="span"
-            variant="contained"
-            startIcon={<CloudUploadIcon />}
-            disabled={disabled || isUploading}
-          >
-            {label}
-            {isUploading && <CircularProgress size={24} sx={{ ml: 1 }} />}
-          </Button>
-        </label>
-      ) : (
-        <Box>
-          <List>
-            <ListItem
-              secondaryAction={
-                <IconButton
-                  edge="end"
-                  onClick={handleRemoveFile}
-                  disabled={disabled || isUploading}
-                >
-                  <ClearIcon />
-                </IconButton>
-              }
-            >
-              <ListItemIcon>
-                <InsertDriveFileIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={selectedFile?.name || "Current thumbnail"}
-                secondary={
-                  selectedFile
-                    ? `${(selectedFile.size / 1024).toFixed(2)} KB`
-                    : "Uploaded image"
-                }
-              />
-            </ListItem>
-          </List>
- 
-          {currentFileUrl && !selectedFile && (
-            <Box mt={2}>
-              <img
-                src={currentFileUrl}
-                alt="Current thumbnail"
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "200px",
-                  borderRadius: "4px",
-                }}
-              />
-            </Box>
+      <label htmlFor={`file-upload-${label.replace(/\s+/g, "-")}`}>
+        <Button
+          component="span"
+          variant="contained"
+          startIcon={<CloudUploadIcon />}
+          disabled={disabled}
+        >
+          {label}
+        </Button>
+      </label>
+
+      {currentFileUrl && (
+        <Box mt={2}>
+          {fileType === "image" ? (
+            <img
+              src={currentFileUrl}
+              alt="Uploaded"
+              style={{ maxWidth: "100%", maxHeight: 200 }}
+            />
+          ) : fileType === "video" ? (
+            <video
+              controls
+              src={currentFileUrl}
+              style={{ maxWidth: "100%", maxHeight: 200 }}
+            />
+          ) : (
+            <Typography>
+              <a
+                href={currentFileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Uploaded File
+              </a>
+            </Typography>
           )}
         </Box>
-      )}
- 
-      {error && (
-        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-          {error}
-        </Typography>
       )}
     </Box>
   );
 };
- 
+
 export default FileUpload;

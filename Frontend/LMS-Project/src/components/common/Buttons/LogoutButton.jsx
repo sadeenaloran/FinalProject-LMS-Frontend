@@ -11,7 +11,7 @@ const LogoutButton = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate("/login"); // Redirect to login page after logout
+      navigate("/"); // Redirect to Home page after logout
     } catch (error) {
       console.error("Logout error:", error);
     }

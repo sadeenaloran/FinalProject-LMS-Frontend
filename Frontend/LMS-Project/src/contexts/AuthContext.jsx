@@ -106,7 +106,7 @@ export const AuthProvider = ({ children }) => {
         type: "LOGIN_SUCCESS",
         payload: response,
       });
-      navigate(DEFAULT_REDIRECTS[response.user.role] || "/dashboard");
+      navigate(DEFAULT_REDIRECTS[response.user.role]);
     } catch (error) {
       dispatch({
         type: "LOGIN_FAILURE",
