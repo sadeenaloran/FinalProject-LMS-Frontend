@@ -13,11 +13,11 @@ import Home from "@pages/Home/Home.jsx";
 import About from "@pages/About/About.jsx";
 import Contact from "@/pages/ContactUs/ContactUs";
 import AdminDashboard from "./pages/Dashboard/AdminDashboard";
-import InstructorRoutes from "./Router/InstructorRoutes";
 import StudentDashboard from "./pages/Dashboard/StudentDashboard";
 import Unauthorized from "./components/common/ProtectedRoute/Unauthorized";
 import LoginPage from "./pages/auth/LoginPage/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage/RegisterPage";
+import InstructorRoutes from "./Router/InstructorRoutes";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -61,16 +61,23 @@ function App() {
             </Route>
 
             {/* Instructor Routes */}
-            <Route element={<ProtectedRoute roles={["instructor"]} />}>
-              <Route path="/instructor/dashboard/*" element={<InstructorRoutes />} />
-            </Route>
+           <Route path="/instructor/*">
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute roles={["instructor"]}>
+              <InstructorRoutes />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
 
             {/* Student Routes */}
             <Route element={<ProtectedRoute roles={["student"]} />}>
               <Route path="/student/dashboard" element={<StudentDashboard />} />
             </Route>
             <Route path="/unauthorized" element={<Unauthorized />} />
-            
+
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
         </AuthProvider>

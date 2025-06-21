@@ -1,93 +1,4 @@
-// import React from "react";
-// import {
-//   Drawer,
-//   List,
-//   ListItem,
-//   ListItemIcon,
-//   ListItemText,
-//   Divider,
-//   Box,
-//   Typography,
-// } from "@mui/material";
-// import { School, Book, Assessment, Assignment } from "@mui/icons-material";
-// import { styled } from "@mui/system";
-// import { sidebarStyles } from "../../../assets/styles/studentStyle";
-
-// const drawerWidth = 240;
-
-// const StyledDrawer = styled(Drawer)(({ theme }) => ({
-//   width: drawerWidth,
-//   flexShrink: 0,
-//   "& .MuiDrawer-paper": {
-//     width: drawerWidth,
-//     boxSizing: "border-box",
-//     backgroundColor: theme.palette.background.paper,
-//     borderRight: "none",
-//   },
-// }));
-
-// const StudentSidebar = ({ activeTab, setActiveTab }) => {
-//   return (
-//     <StyledDrawer variant="permanent">
-//       <Box sx={sidebarStyles.logoContainer}>
-//         <Typography variant="h6" sx={sidebarStyles.logoText}>
-//           Learning Hub
-//         </Typography>
-//       </Box>
-//       <Divider />
-//       <List>
-//         <ListItem
-//           button
-//           selected={activeTab === "all"}
-//           onClick={() => setActiveTab("all")}
-//           sx={sidebarStyles.listItem}
-//         >
-//           <ListItemIcon sx={sidebarStyles.listIcon}>
-//             <School />
-//           </ListItemIcon>
-//           <ListItemText primary="All Courses" />
-//         </ListItem>
-//         <ListItem
-//           button
-//           selected={activeTab === "enrolled"}
-//           onClick={() => setActiveTab("enrolled")}
-//           sx={sidebarStyles.listItem}
-//         >
-//           <ListItemIcon sx={sidebarStyles.listIcon}>
-//             <Book />
-//           </ListItemIcon>
-//           <ListItemText primary="My Courses" />
-//         </ListItem>
-//         <ListItem
-//           button
-//           selected={activeTab === "progress"}
-//           onClick={() => setActiveTab("progress")}
-//           sx={sidebarStyles.listItem}
-//         >
-//           <ListItemIcon sx={sidebarStyles.listIcon}>
-//             <Assessment />
-//           </ListItemIcon>
-//           <ListItemText primary="My Progress" />
-//         </ListItem>
-//         <ListItem
-//           button
-//           selected={activeTab === "assignments"}
-//           onClick={() => setActiveTab("assignments")}
-//           sx={sidebarStyles.listItem}
-//         >
-//           <ListItemIcon sx={sidebarStyles.listIcon}>
-//             <Assignment />
-//           </ListItemIcon>
-//           <ListItemText primary="Assignments" />
-//         </ListItem>
-//       </List>
-//     </StyledDrawer>
-//   );
-// };
-
-// export default StudentSidebar;
-
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Drawer,
   List,
@@ -168,9 +79,11 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     overflowX: "hidden",
+    top: "69px",
     width: drawerWidth,
     [theme.breakpoints.down("sm")]: {
       position: "absolute",
+      height: "100%",
       zIndex: theme.zIndex.drawer + 1,
     },
   },
@@ -180,6 +93,8 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
+    top: "69px",
+    height: "100%",
     width: collapsedWidth,
     [theme.breakpoints.down("sm")]: {
       width: 0,
@@ -209,7 +124,7 @@ const StudentSidebar = ({ activeTab, setActiveTab }) => {
         <Toolbar
           sx={{
             position: "fixed",
-            top: 0,
+            top: (theme) => theme.mixins.toolbar.minHeight,
             left: 0,
             zIndex: theme.zIndex.drawer - 1,
             bgcolor: "background.paper",
@@ -221,13 +136,9 @@ const StudentSidebar = ({ activeTab, setActiveTab }) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2 }}
           >
             <Menu />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Student Portal
-          </Typography>
         </Toolbar>
       )}
 
@@ -249,7 +160,6 @@ const StudentSidebar = ({ activeTab, setActiveTab }) => {
             sx={{
               display: "flex",
               justifyContent: "flex-end",
-              p: 1,
               borderBottom: "1px solid rgba(145, 185, 255, 0.3)",
             }}
           >

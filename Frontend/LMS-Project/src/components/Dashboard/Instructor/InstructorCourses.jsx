@@ -219,7 +219,7 @@ import {
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import CoursesService from "../../../services/CourseInsServices";
-import AuthContext from "../../../contexts/AuthContext/AuthContext";
+import AuthContext from "../../../contexts/AuthContext";
 
 const InstructorCourses = () => {
   const navigate = useNavigate();

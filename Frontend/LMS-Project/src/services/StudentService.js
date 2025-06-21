@@ -1,4 +1,3 @@
-// CourseService.js
 import api from "../api/api";
 import { API_ENDPOINTS } from "../constants/ApiEndpoints";
 
@@ -64,6 +63,7 @@ const StudentService = {
       throw error;
     }
   },
+
   getAssignment: async (assignmentId) => {
     try {
       const response = await api.get(

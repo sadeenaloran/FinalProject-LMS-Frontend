@@ -234,13 +234,13 @@ import UserHeader from "../../components/common/Header/UserHeader";
 const DashboardContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   minHeight: "100vh",
-  backgroundColor: theme.palette.grey[50], // Very light grey background
+  backgroundColor: theme.palette.grey[50], 
 }));
 
 const MainContent = styled(Box)({
   flexGrow: 1,
   padding: "24px",
-  backgroundColor: "#f8fbff", // Very light blue background
+  backgroundColor: "#f8fbff", 
 });
 
 const StudentDashboard = () => {
@@ -338,6 +338,8 @@ const StudentDashboard = () => {
       : [];
 
   return (
+    <>
+    <UserHeader/>
     <DashboardContainer>
       <StudentSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
@@ -443,6 +445,8 @@ const StudentDashboard = () => {
         course={selectedCourse}
       />
     </DashboardContainer>
+    </>
+
   );
 };
 

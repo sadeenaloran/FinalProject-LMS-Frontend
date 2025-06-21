@@ -1,4 +1,3 @@
-// src/services/profileService.js
 import api from "../api/api";
 import { API_ENDPOINTS } from "../constants/ApiEndpoints";
 

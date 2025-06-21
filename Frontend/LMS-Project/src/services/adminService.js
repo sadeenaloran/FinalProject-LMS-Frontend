@@ -1,69 +1,3 @@
-// import api from "../api/index";
-// import { API_ENDPOINTS } from "../constants/ApiEndpoints";
-
-// // خدمات المسؤول لإدارة المستخدمين
-// const adminService = {
-//   getAllUsers: async () => {
-//     try {
-//       const token = localStorage.getItem("access-token");
-//       if (!token || token === "undefined") {
-//         throw new Error("Access token is missing or invalid");
-//       }
-
-//       const response = await api.get(API_ENDPOINTS.ADMIN.GET_ALL_USERS, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       if (Array.isArray(response.data)) {
-//         return response.data;
-//       }
-//       if (Array.isArray(response.data.users)) {
-//         return response.data.users;
-//       }
-//       return [];
-//     } catch (error) {
-//       console.error("Error in getAllUsers:", error, error.response?.data);
-//       throw new Error(error.response?.data?.message || "Failed to fetch users");
-//     }
-//   },
-
-//   addUser: async (userData) => {
-//     try {
-//       const response = await api.post(API_ENDPOINTS.ADMIN.ADD_USER, userData);
-//       return response.data.data;
-//     } catch (error) {
-//       throw new Error(error.response?.data?.message || "فشل إضافة المستخدم");
-//     }
-//   },
-
-//   // حذف مستخدم
-//   deleteUser: async (userId) => {
-//     try {
-//       const response = await api.delete(
-//         `${API_ENDPOINTS.ADMIN.DELETE_USER}/${userId}`
-//       );
-//       return response.data;
-//     } catch (error) {
-//       throw new Error(error.response?.data?.message || "فشل حذف المستخدم");
-//     }
-//   },
-
-//   // تحديث بيانات المستخدم
-//   updateUser: async (userId, updatedData) => {
-//     try {
-//       const response = await api.put(
-//         `${API_ENDPOINTS.ADMIN.UPDATE_USER}/${userId}`,
-//         updatedData
-//       );
-//       return response.data;
-//     } catch (error) {
-//       throw new Error(error.response?.data?.message || "فشل تعديل المستخدم");
-//     }
-//   },
-// };
-// export default adminService;
 import api from "../api/api";
 import { API_ENDPOINTS } from "../constants/ApiEndpoints";
 
@@ -112,25 +46,6 @@ const adminService = {
       throw new Error(error.response?.data?.message || "Failed to add user");
     }
   },
-
-  //   updateUser: async (userId, updatedData) => {
-  //     try {
-  //       const token = localStorage.getItem("access-token");
-  //       const response = await api.put(
-  //         `${API_ENDPOINTS.ADMIN.UPDATE_USER}/${userId}`,
-  //         updatedData,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       return response.data.data || response.data;
-  //     } catch (error) {
-  //       console.error("Error in updateUser:", error.response?.data);
-  //       throw new Error(error.response?.data?.message || "Failed to update user");
-  //     }
-  //   },
 
   updateUser: async (userId, updatedData) => {
     try {
