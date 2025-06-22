@@ -1,6 +1,6 @@
 import LoginForm from "../../../components/auth/LoginForm";
 import { Grid, Box } from "@mui/material";
-import loginImage from "../../../assets/images/loginImg.png"; 
+import LoginImage from "../../../assets/images/LoginImage.png"; 
 const LoginPage = () => {
   return (
       <Box maxWidth="xl"
@@ -18,8 +18,8 @@ const LoginPage = () => {
         <Grid container spacing={4} sx={{ alignItems:"center"}}>
           <Grid item xs={12} md={6} lg={6}>
             <img
-              src={loginImage}
-              alt="LMS illustration"
+              src={LoginImage}
+              alt="LMS LoginImage"
               width={500}
               height={500}
             />

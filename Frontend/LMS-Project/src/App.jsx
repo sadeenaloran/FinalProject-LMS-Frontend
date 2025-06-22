@@ -18,7 +18,8 @@ import Unauthorized from "./components/common/ProtectedRoute/Unauthorized";
 import LoginPage from "./pages/auth/LoginPage/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage/RegisterPage";
 import InstructorRoutes from "./Router/InstructorRoutes";
-
+import Footer from "./components/common/Footer/Footer";
+import AllCoursesPage from "./pages/Courses/Courses"
 function App() {
   const [mode, setMode] = useState("light");
 
@@ -42,6 +43,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/About" element={<About />} />
             <Route path="/Contact" element={<Contact />} />
+            <Route path="/Courses" element={<AllCoursesPage />} />
 
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -61,16 +63,16 @@ function App() {
             </Route>
 
             {/* Instructor Routes */}
-           <Route path="/instructor/*">
-        <Route
-          path="*"
-          element={
-            <ProtectedRoute roles={["instructor"]}>
-              <InstructorRoutes />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
+            <Route path="/instructor/*">
+              <Route
+                path="*"
+                element={
+                  <ProtectedRoute roles={["instructor"]}>
+                    <InstructorRoutes />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
 
             {/* Student Routes */}
             <Route element={<ProtectedRoute roles={["student"]} />}>
@@ -80,6 +82,7 @@ function App() {
 
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
+          <Footer />
         </AuthProvider>
       </Router>
     </ThemeProvider>
