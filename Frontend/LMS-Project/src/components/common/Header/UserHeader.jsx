@@ -362,7 +362,7 @@ const UserHeader = ({ mode, toggleColorMode }) => {
 
   const navigationItems = [
     { text: "Dashboard", link: "/dashboard" },
-    { text: "Courses", link: "/courses" },
+    { text: "Courses", link: "/Courses" },
     { text: "Progress", link: "/progress" },
   ];
 
@@ -726,7 +726,7 @@ const UserHeader = ({ mode, toggleColorMode }) => {
                   <Divider />
                   <MenuItem 
                     onClick={() => {
-                      navigate("/logout");
+                      navigate("/");
                       handleClose();
                     }}
                   >

@@ -68,7 +68,7 @@ const Contact = () => {
     <Header/>
     <Container maxWidth="lg" sx={{ 
       textAlign: "center", 
-      mt: { xs: 4, sm: 6, md: 10 },
+      mt: { xs: 4, sm: 6, md: 16 },
       px: { xs: 2, sm: 3, md: 4 }
     }}>
       <Typography variant="h3" gutterBottom sx={{ 
@@ -270,7 +270,6 @@ const Contact = () => {
         </Typography>
       </Box> */}
     </Container>
-    <Footer/>
   </>
   );
 };

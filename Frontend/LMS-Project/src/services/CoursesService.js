@@ -54,7 +54,7 @@ const CourseService = {
   getCourseDetails: async (courseId) => {
     try {
       const response = await api.get(
-        API_ENDPOINTS.COURSES.GET_COURSE_DETAILS.replace(":courseId", courseId)
+        API_ENDPOINTS.COURSES.GET_COURSE.replace(":courseId", courseId)
       );
       return response.data;
     } catch (error) {

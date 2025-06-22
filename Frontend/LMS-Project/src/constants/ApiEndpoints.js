@@ -71,4 +71,34 @@ export const API_ENDPOINTS = {
     // UPDATE: "/categories/:id",
     // DELETE: "/categories/:id",
   },
+    QUIZZES: {
+    GET_ALL: "/quizzes",
+    GET_ONE: "/quizzes/:id",
+    GET_BY_LESSON: "/quizzes/lesson/:lessonId",
+    GET_BY_MODULE: "/quizzes/module/:moduleId",
+    GET_BY_COURSE: "/quizzes/course/:courseId",
+    CREATE: "/quizzes",
+    UPDATE: "/quizzes/:id",
+    DELETE: "/quizzes/:id",
+    PUBLISH: "/quizzes/:id/publish",
+    UNPUBLISH: "/quizzes/:id/unpublish",
+    SUBMIT: "/quizzes/:id/submit",
+    RESULTS: "/quizzes/:id/results",
+    SUBMISSIONS: "/quizzes/:id/submissions",
+  },
+
+  QUIZ_QUESTIONS: {
+    GET_BY_QUIZ: "/quizzes/:quizId/questions",
+    CREATE: "/quizzes/:quizId/questions",
+    UPDATE: "/quizzes/questions/:questionId",
+    DELETE: "/quizzes/questions/:questionId",
+    REORDER: "/quizzes/questions/reorder",
+  },
+
+  QUIZ_ANSWERS: {
+    GET_BY_QUESTION: "/quizzes/questions/:questionId/answers",
+    CREATE: "/quizzes/questions/:questionId/answers",
+    UPDATE: "/quizzes/answers/:answerId",
+    DELETE: "/quizzes/answers/:answerId",
+  },
 };

@@ -716,6 +716,15 @@ const InstructorService = {
       throw error;
     }
   },
+    getQuizzesByLesson: async (lessonId) => {
+    try {
+      const response = await api.get(`/quizzes/lesson/${lessonId}`);
+      return response.data.data || []; // حسب شكل الـ response عندك
+    } catch (error) {
+      console.error("Error fetching quizzes by lesson:", error);
+      throw error;
+    }
+  },
 };
 
 export default InstructorService;

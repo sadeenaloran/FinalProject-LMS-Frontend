@@ -1,1294 +1,3 @@
-// // // // // import React, { useState, useEffect } from "react";
-// // // // // import { Link } from "react-router-dom";
-// // // // // import {
-// // // // //   Table,
-// // // // //   TableBody,
-// // // // //   TableCell,
-// // // // //   TableContainer,
-// // // // //   TableHead,
-// // // // //   TableRow,
-// // // // //   Paper,
-// // // // //   Button,
-// // // // //   IconButton,
-// // // // //   Chip,
-// // // // //   Typography,
-// // // // //   Box,
-// // // // //   TextField,
-// // // // //   CircularProgress,
-// // // // //   Tooltip,
-// // // // // } from "@mui/material";
-// // // // // import {
-// // // // //   Edit as EditIcon,
-// // // // //   Delete as DeleteIcon,
-// // // // //   Visibility as VisibilityIcon,
-// // // // //   Add as AddIcon,
-// // // // //   Search as SearchIcon,
-// // // // // } from "@mui/icons-material";
-// // // // // import { useSnackbar } from "notistack";
-// // // // // import axios from "axios";
-
-// // // // // const CourseList = () => {
-// // // // //   const [courses, setCourses] = useState([]);
-// // // // //   const [categories, setCategories] = useState([]);
-
-// // // // //   const [loading, setLoading] = useState(true);
-// // // // //   const [searchTerm, setSearchTerm] = useState("");
-// // // // //   const [selectedCategory, setSelectedCategory] = useState("");
-
-// // // // //   const { enqueueSnackbar } = useSnackbar();
-
-// // // // //   // Mock data fetch - replace with your API call
-// // // // //   useEffect(() => {
-// // // // //     const fetchCourses = async () => {
-// // // // //       try {
-// // // // //         // Simulate API call
-// // // // //         await new Promise((resolve) => setTimeout(resolve, 1000));
-
-// // // // //         setLoading(false);
-// // // // //       } catch (error) {
-// // // // //         enqueueSnackbar("Failed to load courses", { variant: "error" });
-// // // // //         setLoading(false);
-// // // // //       }
-// // // // //     };
-
-// // // // //     fetchCourses();
-// // // // //   }, [enqueueSnackbar]);
-
-// // // // //   const handleDelete = (courseId) => {
-// // // // //     // Confirm before deleting
-// // // // //     if (window.confirm("Are you sure you want to delete this course?")) {
-// // // // //       // Implement your delete logic here
-// // // // //       enqueueSnackbar("Course deleted successfully", { variant: "success" });
-// // // // //     }
-// // // // //   };
-
-// // // // //   const filteredCourses = courses.filter((course) => {
-// // // // //     const matchesSearch =
-// // // // //       course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-// // // // //       course.code.toLowerCase().includes(searchTerm.toLowerCase());
-// // // // //     const matchesCategory =
-// // // // //       !selectedCategory || course.category === selectedCategory;
-// // // // //     return matchesSearch && matchesCategory;
-// // // // //   });
-
-// // // // //   useEffect(() => {
-// // // // //     const fetchData = async () => {
-// // // // //       try {
-// // // // //         // Fetch categories
-// // // // //         const categoriesResponse = await axios.get("/categories");
-// // // // //         setCategories(categoriesResponse.data.categories);
-
-// // // // //         // Fetch courses
-// // // // //         const coursesResponse = await axios.get("/instructor/courses");
-// // // // //         setCourses(coursesResponse.data.courses);
-
-// // // // //         setLoading(false);
-// // // // //       } catch (error) {
-// // // // //         enqueueSnackbar("Failed to load data", { variant: "error" });
-// // // // //         setLoading(false);
-// // // // //       }
-// // // // //     };
-
-// // // // //     fetchData();
-// // // // //   }, [enqueueSnackbar]);
-// // // // //   const getStatusColor = (status) => {
-// // // // //     switch (status) {
-// // // // //       case "published":
-// // // // //         return "success";
-// // // // //       case "draft":
-// // // // //         return "warning";
-// // // // //       default:
-// // // // //         return "default";
-// // // // //     }
-// // // // //   };
-
-// // // // //   if (loading) {
-// // // // //     return (
-// // // // //       <Box
-// // // // //         display="flex"
-// // // // //         justifyContent="center"
-// // // // //         alignItems="center"
-// // // // //         minHeight="200px"
-// // // // //       >
-// // // // //         <CircularProgress />
-// // // // //       </Box>
-// // // // //     );
-// // // // //   }
-
-// // // // //   return (
-// // // // //     <Paper elevation={3} sx={{ p: 3 }}>
-// // // // //       <Box
-// // // // //         display="flex"
-// // // // //         justifyContent="space-between"
-// // // // //         alignItems="center"
-// // // // //         mb={3}
-// // // // //       >
-// // // // //         <Typography variant="h5" component="h2">
-// // // // //           My Courses
-// // // // //         </Typography>
-
-// // // // //         <Box display="flex" alignItems="center" gap={2}>
-// // // // //           <TextField
-// // // // //             select
-// // // // //             label="Filter by category"
-// // // // //             value={selectedCategory}
-// // // // //             onChange={(e) => setSelectedCategory(e.target.value)}
-// // // // //             sx={{ minWidth: 200 }}
-// // // // //             size="small"
-// // // // //           >
-// // // // //             <MenuItem value="">All Categories</MenuItem>
-// // // // //             {categories.map((category) => (
-// // // // //               <MenuItem key={category._id} value={category._id}>
-// // // // //                 {category.name}
-// // // // //               </MenuItem>
-// // // // //             ))}
-// // // // //           </TextField>
-
-// // // // //           <TextField
-// // // // //             variant="outlined"
-// // // // //             size="small"
-// // // // //             placeholder="Search courses..."
-// // // // //             InputProps={{
-// // // // //               startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} />,
-// // // // //             }}
-// // // // //             sx={{ width: 300 }}
-// // // // //             value={searchTerm}
-// // // // //             onChange={(e) => setSearchTerm(e.target.value)}
-// // // // //           />
-
-// // // // //           <Button
-// // // // //             variant="contained"
-// // // // //             color="primary"
-// // // // //             startIcon={<AddIcon />}
-// // // // //             component={Link}
-// // // // //             to="/instructor/courses/new"
-// // // // //           >
-// // // // //             New Course
-// // // // //           </Button>
-// // // // //         </Box>
-// // // // //       </Box>
-
-// // // // //       <TableContainer component={Paper}>
-// // // // //         <Table>
-// // // // //           <TableHead>
-// // // // //             <TableRow>
-// // // // //               <TableCell>Title</TableCell>
-// // // // //               <TableCell>Code</TableCell>
-// // // // //               <TableCell>Status</TableCell>
-// // // // //               <TableCell>Students</TableCell>
-// // // // //               <TableCell>Created</TableCell>
-// // // // //               <TableCell align="right">Actions</TableCell>
-// // // // //             </TableRow>
-// // // // //           </TableHead>
-// // // // //           <TableBody>
-// // // // //             {filteredCourses.length > 0 ? (
-// // // // //               filteredCourses.map((course) => (
-// // // // //                 <TableRow key={course.id}>
-// // // // //                   <TableCell>
-// // // // //                     <Typography fontWeight="medium">{course.title}</Typography>
-// // // // //                   </TableCell>
-// // // // //                   <TableCell>{course.code}</TableCell>
-// // // // //                   <TableCell>
-// // // // //                     <Chip
-// // // // //                       label={course.status}
-// // // // //                       color={getStatusColor(course.status)}
-// // // // //                       size="small"
-// // // // //                     />
-// // // // //                   </TableCell>
-// // // // //                   <TableCell>{course.students}</TableCell>
-// // // // //                   <TableCell>
-// // // // //                     {new Date(course.createdAt).toLocaleDateString()}
-// // // // //                   </TableCell>
-// // // // //                   <TableCell align="right">
-// // // // //                     <Tooltip title="View">
-// // // // //                       <IconButton
-// // // // //                         component={Link}
-// // // // //                         to={`/instructor/courses/${course.id}`}
-// // // // //                         color="primary"
-// // // // //                       >
-// // // // //                         <VisibilityIcon />
-// // // // //                       </IconButton>
-// // // // //                     </Tooltip>
-// // // // //                     <Tooltip title="Edit">
-// // // // //                       <IconButton
-// // // // //                         component={Link}
-// // // // //                         to={`/instructor/courses/${course.id}/edit`}
-// // // // //                         color="secondary"
-// // // // //                       >
-// // // // //                         <EditIcon />
-// // // // //                       </IconButton>
-// // // // //                     </Tooltip>
-// // // // //                     <Tooltip title="Delete">
-// // // // //                       <IconButton
-// // // // //                         onClick={() => handleDelete(course.id)}
-// // // // //                         color="error"
-// // // // //                       >
-// // // // //                         <DeleteIcon />
-// // // // //                       </IconButton>
-// // // // //                     </Tooltip>
-// // // // //                   </TableCell>
-// // // // //                 </TableRow>
-// // // // //               ))
-// // // // //             ) : (
-// // // // //               <TableRow>
-// // // // //                 <TableCell colSpan={6} align="center">
-// // // // //                   <Typography variant="body1" color="textSecondary">
-// // // // //                     No courses found
-// // // // //                   </Typography>
-// // // // //                 </TableCell>
-// // // // //               </TableRow>
-// // // // //             )}
-// // // // //           </TableBody>
-// // // // //         </Table>
-// // // // //       </TableContainer>
-// // // // //     </Paper>
-// // // // //   );
-// // // // // };
-
-// // // // // export default CourseList;
-// // // // import React, { useState, useEffect } from "react";
-// // // // import { Link } from "react-router-dom";
-// // // // import {
-// // // //   Table,
-// // // //   TableBody,
-// // // //   TableCell,
-// // // //   TableContainer,
-// // // //   TableHead,
-// // // //   TableRow,
-// // // //   Paper,
-// // // //   Button,
-// // // //   IconButton,
-// // // //   Chip,
-// // // //   Typography,
-// // // //   Box,
-// // // //   TextField,
-// // // //   CircularProgress,
-// // // //   Tooltip,
-// // // //   MenuItem,
-// // // // } from "@mui/material";
-// // // // import {
-// // // //   Edit as EditIcon,
-// // // //   Delete as DeleteIcon,
-// // // //   Visibility as VisibilityIcon,
-// // // //   Add as AddIcon,
-// // // //   Search as SearchIcon,
-// // // // } from "@mui/icons-material";
-// // // // import { useSnackbar } from "notistack";
-// // // // import axios from "axios";
-
-// // // // const CourseList = () => {
-// // // //   const [courses, setCourses] = useState([]);
-// // // //   const [categories, setCategories] = useState([]);
-
-// // // //   const [loading, setLoading] = useState(true);
-// // // //   const [searchTerm, setSearchTerm] = useState("");
-// // // //   const [selectedCategory, setSelectedCategory] = useState("");
-
-// // // //   const { enqueueSnackbar } = useSnackbar();
-
-// // // //   useEffect(() => {
-// // // //     const fetchData = async () => {
-// // // //       try {
-// // // //         // جلب التصنيفات
-// // // //         const categoriesResponse = await axios.get("/categories");
-// // // //         setCategories(categoriesResponse.data.categories);
-
-// // // //         // جلب الكورسات
-// // // //         const coursesResponse = await axios.get("/instructor/courses");
-// // // //         const coursesData = coursesResponse.data.courses;
-
-// // // //         // جلب الموديلات والدروس لكل كورس
-// // // //         const coursesWithModulesAndLessons = await Promise.all(
-// // // //           coursesData.map(async (course) => {
-// // // //             // جلب الموديلات للكورس
-// // // //             const modulesResponse = await axios.get(
-// // // //               `/api/courses/${course.id}/modules`
-// // // //             );
-// // // //             const modules = modulesResponse.data.data || [];
-
-// // // //             // لكل موديل، جلب الدروس
-// // // //             const modulesWithLessons = await Promise.all(
-// // // //               modules.map(async (module) => {
-// // // //                 const lessonsResponse = await axios.get(
-// // // //                   `/api/lessons/module/${module.id}`
-// // // //                 );
-// // // //                 const lessons = lessonsResponse.data.data || [];
-// // // //                 return { ...module, lessons };
-// // // //               })
-// // // //             );
-
-// // // //             return { ...course, modules: modulesWithLessons };
-// // // //           })
-// // // //         );
-
-// // // //         setCourses(coursesWithModulesAndLessons);
-// // // //         setLoading(false);
-// // // //       } catch (error) {
-// // // //         enqueueSnackbar("Failed to load data", { variant: "error" });
-// // // //         setLoading(false);
-// // // //       }
-// // // //     };
-
-// // // //     fetchData();
-// // // //   }, [enqueueSnackbar]);
-
-// // // //   const handleDelete = (courseId) => {
-// // // //     if (window.confirm("Are you sure you want to delete this course?")) {
-// // // //       // منطق الحذف (تحتاج تضيفه هنا حسب API الخاص بك)
-// // // //       enqueueSnackbar("Course deleted successfully", { variant: "success" });
-// // // //       setCourses((prev) => prev.filter((c) => c.id !== courseId));
-// // // //     }
-// // // //   };
-
-// // // //   const getStatusColor = (status) => {
-// // // //     switch (status) {
-// // // //       case "published":
-// // // //         return "success";
-// // // //       case "draft":
-// // // //         return "warning";
-// // // //       default:
-// // // //         return "default";
-// // // //     }
-// // // //   };
-
-// // // //   // تصفية الكورسات حسب البحث والتصنيف
-// // // //   const filteredCourses = courses.filter((course) => {
-// // // //     const matchesSearch =
-// // // //       course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-// // // //       (course.code &&
-// // // //         course.code.toLowerCase().includes(searchTerm.toLowerCase()));
-// // // //     const matchesCategory =
-// // // //       !selectedCategory || course.category === selectedCategory;
-// // // //     return matchesSearch && matchesCategory;
-// // // //   });
-
-// // // //   if (loading) {
-// // // //     return (
-// // // //       <Box
-// // // //         display="flex"
-// // // //         justifyContent="center"
-// // // //         alignItems="center"
-// // // //         minHeight="200px"
-// // // //       >
-// // // //         <CircularProgress />
-// // // //       </Box>
-// // // //     );
-// // // //   }
-
-// // // //   return (
-// // // //     <Paper elevation={3} sx={{ p: 3 }}>
-// // // //       <Box
-// // // //         display="flex"
-// // // //         justifyContent="space-between"
-// // // //         alignItems="center"
-// // // //         mb={3}
-// // // //       >
-// // // //         <Typography variant="h5" component="h2">
-// // // //           My Courses
-// // // //         </Typography>
-
-// // // //         <Box display="flex" alignItems="center" gap={2}>
-// // // //           <TextField
-// // // //             select
-// // // //             label="Filter by category"
-// // // //             value={selectedCategory}
-// // // //             onChange={(e) => setSelectedCategory(e.target.value)}
-// // // //             sx={{ minWidth: 200 }}
-// // // //             size="small"
-// // // //           >
-// // // //             <MenuItem value="">All Categories</MenuItem>
-// // // //             {categories.map((category) => (
-// // // //               <MenuItem key={category._id} value={category._id}>
-// // // //                 {category.name}
-// // // //               </MenuItem>
-// // // //             ))}
-// // // //           </TextField>
-
-// // // //           <TextField
-// // // //             variant="outlined"
-// // // //             size="small"
-// // // //             placeholder="Search courses..."
-// // // //             InputProps={{
-// // // //               startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} />,
-// // // //             }}
-// // // //             sx={{ width: 300 }}
-// // // //             value={searchTerm}
-// // // //             onChange={(e) => setSearchTerm(e.target.value)}
-// // // //           />
-
-// // // //           <Button
-// // // //             variant="contained"
-// // // //             color="primary"
-// // // //             startIcon={<AddIcon />}
-// // // //             component={Link}
-// // // //             to="/instructor/courses/new"
-// // // //           >
-// // // //             New Course
-// // // //           </Button>
-// // // //         </Box>
-// // // //       </Box>
-
-// // // //       {filteredCourses.length === 0 && (
-// // // //         <Typography variant="body1" color="textSecondary" align="center" mt={4}>
-// // // //           No courses found.
-// // // //         </Typography>
-// // // //       )}
-
-// // // //       {filteredCourses.map((course) => (
-// // // //         <Box
-// // // //           key={course.id}
-// // // //           mb={4}
-// // // //           p={2}
-// // // //           border="1px solid #ccc"
-// // // //           borderRadius={2}
-// // // //           sx={{ backgroundColor: "#fafafa" }}
-// // // //         >
-// // // //           <Box
-// // // //             display="flex"
-// // // //             justifyContent="space-between"
-// // // //             alignItems="center"
-// // // //             mb={1}
-// // // //           >
-// // // //             <Typography variant="h6">{course.title}</Typography>
-// // // //             <Chip label={course.status} color={getStatusColor(course.status)} />
-// // // //           </Box>
-
-// // // //           <Typography variant="body2" mb={2}>
-// // // //             {course.description || "No description available."}
-// // // //           </Typography>
-
-// // // //           <Box mb={1}>
-// // // //             <Typography variant="subtitle1" fontWeight="bold">
-// // // //               Modules:
-// // // //             </Typography>
-// // // //             {course.modules && course.modules.length > 0 ? (
-// // // //               course.modules.map((module) => (
-// // // //                 <Box
-// // // //                   key={module.id}
-// // // //                   ml={2}
-// // // //                   mt={1}
-// // // //                   mb={1}
-// // // //                   p={1}
-// // // //                   border="1px solid #ddd"
-// // // //                   borderRadius={1}
-// // // //                 >
-// // // //                   <Typography variant="subtitle2">{module.title}</Typography>
-
-// // // //                   <Typography variant="body2" color="textSecondary" mb={1}>
-// // // //                     {module.description || "No description"}
-// // // //                   </Typography>
-
-// // // //                   <Typography variant="body2" fontWeight="bold">
-// // // //                     Lessons:
-// // // //                   </Typography>
-
-// // // //                   {module.lessons && module.lessons.length > 0 ? (
-// // // //                     <ul style={{ marginTop: 4 }}>
-// // // //                       {module.lessons.map((lesson) => (
-// // // //                         <li key={lesson.id}>{lesson.title}</li>
-// // // //                       ))}
-// // // //                     </ul>
-// // // //                   ) : (
-// // // //                     <Typography variant="body2" color="textSecondary" ml={2}>
-// // // //                       No lessons available.
-// // // //                     </Typography>
-// // // //                   )}
-// // // //                 </Box>
-// // // //               ))
-// // // //             ) : (
-// // // //               <Typography variant="body2" color="textSecondary" ml={2}>
-// // // //                 No modules available.
-// // // //               </Typography>
-// // // //             )}
-// // // //           </Box>
-
-// // // //           <Box mt={2} display="flex" justifyContent="flex-end" gap={1}>
-// // // //             <Button
-// // // //               variant="outlined"
-// // // //               size="small"
-// // // //               component={Link}
-// // // //               to={`/instructor/courses/${course.id}`}
-// // // //               startIcon={<VisibilityIcon />}
-// // // //             >
-// // // //               View
-// // // //             </Button>
-// // // //             <Button
-// // // //               variant="outlined"
-// // // //               size="small"
-// // // //               component={Link}
-// // // //               to={`/instructor/courses/${course.id}/edit`}
-// // // //               startIcon={<EditIcon />}
-// // // //             >
-// // // //               Edit
-// // // //             </Button>
-// // // //             <Button
-// // // //               variant="outlined"
-// // // //               size="small"
-// // // //               color="error"
-// // // //               onClick={() => handleDelete(course.id)}
-// // // //               startIcon={<DeleteIcon />}
-// // // //             >
-// // // //               Delete
-// // // //             </Button>
-// // // //           </Box>
-// // // //         </Box>
-// // // //       ))}
-// // // //     </Paper>
-// // // //   );
-// // // // };
-
-// // // // export default CourseList;
-// // // import React, { useState, useEffect } from "react";
-// // // import { Link } from "react-router-dom";
-// // // import {
-// // //   Box,
-// // //   Button,
-// // //   Chip,
-// // //   CircularProgress,
-// // //   MenuItem,
-// // //   Paper,
-// // //   TextField,
-// // //   Typography,
-// // // } from "@mui/material";
-// // // import {
-// // //   Add as AddIcon,
-// // //   Delete as DeleteIcon,
-// // //   Edit as EditIcon,
-// // //   Search as SearchIcon,
-// // //   Visibility as VisibilityIcon,
-// // // } from "@mui/icons-material";
-// // // import { useSnackbar } from "notistack";
-// // // import InstructorService from "../../services/instructorService";
-
-// // // const CourseList = () => {
-// // //   const [courses, setCourses] = useState([]);
-// // //   const [categories, setCategories] = useState([]);
-// // //   const [loading, setLoading] = useState(true);
-// // //   const [searchTerm, setSearchTerm] = useState("");
-// // //   const [selectedCategory, setSelectedCategory] = useState("");
-// // //   const { enqueueSnackbar } = useSnackbar();
-
-// // //   useEffect(() => {
-// // //     const fetchData = async () => {
-// // //       try {
-// // //         setLoading(true);
-
-// // //         // Fetch categories and courses in parallel
-// // //         const [categoriesData, coursesData] = await Promise.all([
-// // //           InstructorService.getAllCategories(),
-// // //           InstructorService.getCourses(),
-// // //         ]);
-
-// // //         setCategories(categoriesData || []);
-
-// // //         // Fetch modules and lessons for each course
-// // //         const coursesWithDetails = await Promise.all(
-// // //           coursesData.map(async (course) => {
-// // //             try {
-// // //               const modules = await InstructorService.getModulesByCourse(
-// // //                 course.id
-// // //               );
-
-// // //               const modulesWithLessons = await Promise.all(
-// // //                 modules.map(async (module) => {
-// // //                   try {
-// // //                     const lessons = await InstructorService.getLessonsByModule(
-// // //                       module.id
-// // //                     );
-// // //                     return { ...module, lessons };
-// // //                   } catch (error) {
-// // //                     console.error(
-// // //                       `Error fetching lessons for module ${module.id}:`,
-// // //                       error
-// // //                     );
-// // //                     return { ...module, lessons: [] };
-// // //                   }
-// // //                 })
-// // //               );
-
-// // //               return { ...course, modules: modulesWithLessons };
-// // //             } catch (error) {
-// // //               console.error(
-// // //                 `Error fetching modules for course ${course.id}:`,
-// // //                 error
-// // //               );
-// // //               return { ...course, modules: [] };
-// // //             }
-// // //           })
-// // //         );
-
-// // //         setCourses(coursesWithDetails);
-// // //       } catch (error) {
-// // //         console.error("Error loading data:", error);
-// // //         enqueueSnackbar("Failed to load data", { variant: "error" });
-// // //         setCourses([]);
-// // //         setCategories([]);
-// // //       } finally {
-// // //         setLoading(false);
-// // //       }
-// // //     };
-
-// // //     fetchData();
-// // //   }, [enqueueSnackbar]);
-
-// // //   const handleDelete = async (courseId) => {
-// // //     if (window.confirm("Are you sure you want to delete this course?")) {
-// // //       try {
-// // //         await InstructorService.deleteCourse(courseId);
-// // //         enqueueSnackbar("Course deleted successfully", { variant: "success" });
-// // //         setCourses((prev) => prev.filter((c) => c.id !== courseId));
-// // //       } catch (error) {
-// // //         enqueueSnackbar(
-// // //           error.response?.data?.message || "Failed to delete course",
-// // //           {
-// // //             variant: "error",
-// // //           }
-// // //         );
-// // //       }
-// // //     }
-// // //   };
-
-// // //   const getStatusColor = (status) => {
-// // //     switch (status) {
-// // //       case "published":
-// // //         return "success";
-// // //       case "draft":
-// // //         return "warning";
-// // //       default:
-// // //         return "default";
-// // //     }
-// // //   };
-
-// // //   const filteredCourses = courses.filter((course) => {
-// // //     const matchesSearch = course.title
-// // //       ?.toLowerCase()
-// // //       .includes(searchTerm.toLowerCase());
-// // //     const matchesCategory =
-// // //       !selectedCategory || course.category_id === selectedCategory;
-// // //     return matchesSearch && matchesCategory;
-// // //   });
-
-// // //   if (loading) {
-// // //     return (
-// // //       <Box
-// // //         display="flex"
-// // //         justifyContent="center"
-// // //         alignItems="center"
-// // //         minHeight="200px"
-// // //       >
-// // //         <CircularProgress />
-// // //       </Box>
-// // //     );
-// // //   }
-
-// // //   return (
-// // //     <Paper elevation={3} sx={{ p: 3 }}>
-// // //       <Box
-// // //         display="flex"
-// // //         justifyContent="space-between"
-// // //         alignItems="center"
-// // //         mb={3}
-// // //       >
-// // //         <Typography variant="h5" component="h2">
-// // //           My Courses
-// // //         </Typography>
-
-// // //         <Box display="flex" alignItems="center" gap={2}>
-// // //           <TextField
-// // //             select
-// // //             label="Filter by category"
-// // //             value={selectedCategory}
-// // //             onChange={(e) => setSelectedCategory(e.target.value)}
-// // //             sx={{ minWidth: 200 }}
-// // //             size="small"
-// // //           >
-// // //             <MenuItem value="">All Categories</MenuItem>
-// // //             {categories?.map((category) => (
-// // //               <MenuItem key={category._id} value={category._id}>
-// // //                 {category.name}
-// // //               </MenuItem>
-// // //             ))}
-// // //           </TextField>
-
-// // //           <TextField
-// // //             variant="outlined"
-// // //             size="small"
-// // //             placeholder="Search courses..."
-// // //             InputProps={{
-// // //               startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} />,
-// // //             }}
-// // //             sx={{ width: 300 }}
-// // //             value={searchTerm}
-// // //             onChange={(e) => setSearchTerm(e.target.value)}
-// // //           />
-
-// // //           <Button
-// // //             variant="contained"
-// // //             color="primary"
-// // //             startIcon={<AddIcon />}
-// // //             component={Link}
-// // //             to="/instructor/courses/new"
-// // //           >
-// // //             New Course
-// // //           </Button>
-// // //         </Box>
-// // //       </Box>
-
-// // //       {filteredCourses.length === 0 ? (
-// // //         <Typography variant="body1" color="textSecondary" align="center" mt={4}>
-// // //           No courses found.
-// // //         </Typography>
-// // //       ) : (
-// // //         filteredCourses.map((course) => (
-// // //           <Box
-// // //             key={course.id}
-// // //             mb={4}
-// // //             p={2}
-// // //             border="1px solid #ccc"
-// // //             borderRadius={2}
-// // //             sx={{ backgroundColor: "#fafafa" }}
-// // //           >
-// // //             <Box
-// // //               display="flex"
-// // //               justifyContent="space-between"
-// // //               alignItems="center"
-// // //               mb={1}
-// // //             >
-// // //               <Typography variant="h6">{course.title}</Typography>
-// // //               <Chip
-// // //                 label={course.status}
-// // //                 color={getStatusColor(course.status)}
-// // //               />
-// // //             </Box>
-
-// // //             <Typography variant="body2" mb={2}>
-// // //               {course.description || "No description available."}
-// // //             </Typography>
-
-// // //             <Box mb={1}>
-// // //               <Typography variant="subtitle1" fontWeight="bold">
-// // //                 Modules:
-// // //               </Typography>
-// // //               {course.modules?.length > 0 ? (
-// // //                 course.modules.map((module) => (
-// // //                   <Box
-// // //                     key={module.id}
-// // //                     ml={2}
-// // //                     mt={1}
-// // //                     mb={1}
-// // //                     p={1}
-// // //                     border="1px solid #ddd"
-// // //                     borderRadius={1}
-// // //                   >
-// // //                     <Typography variant="subtitle2">{module.title}</Typography>
-// // //                     <Typography variant="body2" color="textSecondary" mb={1}>
-// // //                       {module.description || "No description"}
-// // //                     </Typography>
-
-// // //                     <Typography variant="body2" fontWeight="bold">
-// // //                       Lessons:
-// // //                     </Typography>
-
-// // //                     {module.lessons?.length > 0 ? (
-// // //                       <ul style={{ marginTop: 4 }}>
-// // //                         {module.lessons.map((lesson) => (
-// // //                           <li key={lesson.id}>{lesson.title}</li>
-// // //                         ))}
-// // //                       </ul>
-// // //                     ) : (
-// // //                       <Typography variant="body2" color="textSecondary" ml={2}>
-// // //                         No lessons available.
-// // //                       </Typography>
-// // //                     )}
-// // //                   </Box>
-// // //                 ))
-// // //               ) : (
-// // //                 <Typography variant="body2" color="textSecondary" ml={2}>
-// // //                   No modules available.
-// // //                 </Typography>
-// // //               )}
-// // //             </Box>
-
-// // //             <Box mt={2} display="flex" justifyContent="flex-end" gap={1}>
-// // //               <Button
-// // //                 variant="outlined"
-// // //                 size="small"
-// // //                 component={Link}
-// // //                 to={`/instructor/courses/${course.id}`}
-// // //                 startIcon={<VisibilityIcon />}
-// // //               >
-// // //                 View
-// // //               </Button>
-// // //               <Button
-// // //                 variant="outlined"
-// // //                 size="small"
-// // //                 component={Link}
-// // //                 to={`/instructor/courses/${course.id}/edit`}
-// // //                 startIcon={<EditIcon />}
-// // //               >
-// // //                 Edit
-// // //               </Button>
-// // //               <Button
-// // //                 variant="outlined"
-// // //                 size="small"
-// // //                 color="error"
-// // //                 onClick={() => handleDelete(course.id)}
-// // //                 startIcon={<DeleteIcon />}
-// // //               >
-// // //                 Delete
-// // //               </Button>
-// // //             </Box>
-// // //           </Box>
-// // //         ))
-// // //       )}
-// // //     </Paper>
-// // //   );
-// // // };
-
-// // // export default CourseList;
-// // import React, { useState, useEffect } from "react";
-// // import { Link } from "react-router-dom";
-// // import {
-// //   Box,
-// //   Button,
-// //   Chip,
-// //   CircularProgress,
-// //   MenuItem,
-// //   Paper,
-// //   TextField,
-// //   Typography,
-// //   Dialog,
-// //   DialogActions,
-// //   DialogContent,
-// //   DialogTitle,
-// //   Grid,
-// //   Card,
-// //   CardContent,
-// //   CardActions,
-// //   Divider,
-// //   IconButton,
-// //   Tooltip,
-// //   Avatar,
-// // } from "@mui/material";
-// // import {
-// //   Add as AddIcon,
-// //   Delete as DeleteIcon,
-// //   Edit as EditIcon,
-// //   Search as SearchIcon,
-// //   Visibility as VisibilityIcon,
-// //   Category as CategoryIcon,
-// //   MenuBook as MenuBookIcon,
-// //   Class as ClassIcon,
-// // } from "@mui/icons-material";
-// // import { useSnackbar } from "notistack";
-// // import InstructorService from "../../services/instructorService";
-// // import { lightBlue, lightGreen, orange, grey } from "@mui/material/colors";
-
-// // const CourseList = () => {
-// //   const [courses, setCourses] = useState([]);
-// //   const [categories, setCategories] = useState([]);
-// //   const [loading, setLoading] = useState(true);
-// //   const [searchTerm, setSearchTerm] = useState("");
-// //   const [selectedCategory, setSelectedCategory] = useState("");
-// //   const [editDialogOpen, setEditDialogOpen] = useState(false);
-// //   const [editingCourse, setEditingCourse] = useState(null);
-// //   const { enqueueSnackbar } = useSnackbar();
-
-// //   useEffect(() => {
-// //     const fetchData = async () => {
-// //       try {
-// //         setLoading(true);
-
-// //         // Fetch categories and courses in parallel
-// //         const [categoriesData, coursesData] = await Promise.all([
-// //           InstructorService.getAllCategories(),
-// //           InstructorService.getCourses(),
-// //         ]);
-
-// //         setCategories(categoriesData || []);
-
-// //         // Fetch modules and lessons for each course
-// //         const coursesWithDetails = await Promise.all(
-// //           coursesData.map(async (course) => {
-// //             try {
-// //               const modules = await InstructorService.getModulesByCourse(
-// //                 course.id
-// //               );
-
-// //               const modulesWithLessons = await Promise.all(
-// //                 modules.map(async (module) => {
-// //                   try {
-// //                     const lessons = await InstructorService.getLessonsByModule(
-// //                       module.id
-// //                     );
-// //                     return { ...module, lessons };
-// //                   } catch (error) {
-// //                     console.error(
-// //                       `Error fetching lessons for module ${module.id}:`,
-// //                       error
-// //                     );
-// //                     return { ...module, lessons: [] };
-// //                   }
-// //                 })
-// //               );
-
-// //               return { ...course, modules: modulesWithLessons };
-// //             } catch (error) {
-// //               console.error(
-// //                 `Error fetching modules for course ${course.id}:`,
-// //                 error
-// //               );
-// //               return { ...course, modules: [] };
-// //             }
-// //           })
-// //         );
-
-// //         setCourses(coursesWithDetails);
-// //       } catch (error) {
-// //         console.error("Error loading data:", error);
-// //         enqueueSnackbar("Failed to load data", { variant: "error" });
-// //         setCourses([]);
-// //         setCategories([]);
-// //       } finally {
-// //         setLoading(false);
-// //       }
-// //     };
-
-// //     fetchData();
-// //   }, [enqueueSnackbar]);
-
-// //   const handleDelete = async (courseId) => {
-// //     if (window.confirm("Are you sure you want to delete this course?")) {
-// //       try {
-// //         await InstructorService.deleteCourse(courseId);
-// //         enqueueSnackbar("Course deleted successfully", { variant: "success" });
-// //         setCourses((prev) => prev.filter((c) => c.id !== courseId));
-// //       } catch (error) {
-// //         enqueueSnackbar(
-// //           error.response?.data?.message || "Failed to delete course",
-// //           {
-// //             variant: "error",
-// //           }
-// //         );
-// //       }
-// //     }
-// //   };
-
-// //   const openCourseEditDialog = (course) => {
-// //     setEditingCourse({ ...course });
-// //     setEditDialogOpen(true);
-// //   };
-
-// //   const closeCourseEditDialog = () => {
-// //     setEditingCourse(null);
-// //     setEditDialogOpen(false);
-// //   };
-
-// //   const handleSaveCourse = async () => {
-// //     try {
-// //       await InstructorService.updateCourse(editingCourse.id, editingCourse);
-// //       enqueueSnackbar("Course updated successfully", {
-// //         variant: "success",
-// //       });
-// //       setCourses((prev) =>
-// //         prev.map((c) => (c.id === editingCourse.id ? editingCourse : c))
-// //       );
-// //       closeCourseEditDialog();
-// //     } catch (err) {
-// //       enqueueSnackbar("Failed to update course", {
-// //         variant: "error",
-// //       });
-// //     }
-// //   };
-
-// //   const getStatusColor = (status) => {
-// //     switch (status) {
-// //       case "published":
-// //         return "success";
-// //       case "draft":
-// //         return "warning";
-// //       default:
-// //         return "default";
-// //     }
-// //   };
-
-// //   const filteredCourses = courses.filter((course) => {
-// //     const matchesSearch = course.title
-// //       ?.toLowerCase()
-// //       .includes(searchTerm.toLowerCase());
-// //     const matchesCategory =
-// //       !selectedCategory || course.category_id === selectedCategory;
-// //     return matchesSearch && matchesCategory;
-// //   });
-
-// //   if (loading) {
-// //     return (
-// //       <Box
-// //         display="flex"
-// //         justifyContent="center"
-// //         alignItems="center"
-// //         minHeight="200px"
-// //       >
-// //         <CircularProgress />
-// //       </Box>
-// //     );
-// //   }
-
-// //   return (
-// //     <Box sx={{ p: 3 }}>
-// //       <Paper elevation={0} sx={{ p: 3, mb: 3, bgcolor: grey[50] }}>
-// //         <Box
-// //           display="flex"
-// //           justifyContent="space-between"
-// //           alignItems="center"
-// //           mb={3}
-// //         >
-// //           <Typography variant="h4" component="h1" color="primary">
-// //             My Courses
-// //           </Typography>
-
-// //           <Button
-// //             variant="contained"
-// //             color="primary"
-// //             startIcon={<AddIcon />}
-// //             component={Link}
-// //             to="/instructor/courses/new"
-// //             sx={{
-// //               bgcolor: lightBlue[600],
-// //               "&:hover": { bgcolor: lightBlue[700] },
-// //             }}
-// //           >
-// //             New Course
-// //           </Button>
-// //         </Box>
-
-// //         <Grid container spacing={2} alignItems="center" mb={3}>
-// //           <Grid item xs={12} md={6}>
-// //             <TextField
-// //               fullWidth
-// //               variant="outlined"
-// //               size="small"
-// //               placeholder="Search courses..."
-// //               InputProps={{
-// //                 startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} />,
-// //               }}
-// //               value={searchTerm}
-// //               onChange={(e) => setSearchTerm(e.target.value)}
-// //               sx={{ bgcolor: "background.paper" }}
-// //             />
-// //           </Grid>
-// //           <Grid item xs={12} md={6}>
-// //             <TextField
-// //               select
-// //               fullWidth
-// //               label="Filter by category"
-// //               value={selectedCategory}
-// //               onChange={(e) => setSelectedCategory(e.target.value)}
-// //               size="small"
-// //               sx={{ bgcolor: "background.paper" }}
-// //             >
-// //               <MenuItem value="">All Categories</MenuItem>
-// //               {categories?.map((category) => (
-// //                 <MenuItem key={category._id} value={category._id}>
-// //                   {category.name}
-// //                 </MenuItem>
-// //               ))}
-// //             </TextField>
-// //           </Grid>
-// //         </Grid>
-// //       </Paper>
-
-// //       {filteredCourses.length === 0 ? (
-// //         <Paper
-// //           elevation={0}
-// //           sx={{ p: 4, textAlign: "center", bgcolor: grey[50] }}
-// //         >
-// //           <Typography variant="h6" color="textSecondary">
-// //             No courses found. Create your first course to get started!
-// //           </Typography>
-// //         </Paper>
-// //       ) : (
-// //         <Grid container spacing={3}>
-// //           {filteredCourses.map((course) => (
-// //             <Grid item xs={12} md={6} lg={4} key={course.id}>
-// //               <Card
-// //                 elevation={2}
-// //                 sx={{
-// //                   height: "100%",
-// //                   display: "flex",
-// //                   flexDirection: "column",
-// //                   transition: "transform 0.2s",
-// //                   "&:hover": {
-// //                     transform: "translateY(-4px)",
-// //                     boxShadow: 4,
-// //                   },
-// //                 }}
-// //               >
-// //                 <CardContent sx={{ flexGrow: 1 }}>
-// //                   <Box
-// //                     display="flex"
-// //                     justifyContent="space-between"
-// //                     alignItems="flex-start"
-// //                     mb={2}
-// //                   >
-// //                     <Typography variant="h6" component="h3" gutterBottom>
-// //                       {course.title}
-// //                     </Typography>
-// //                     <Chip
-// //                       label={course.status}
-// //                       color={getStatusColor(course.status)}
-// //                       size="small"
-// //                     />
-// //                   </Box>
-
-// //                   <Typography variant="body2" color="text.secondary" mb={2}>
-// //                     {course.description?.substring(0, 100) ||
-// //                       "No description available."}
-// //                     {course.description?.length > 100 && "..."}
-// //                   </Typography>
-
-// //                   <Divider sx={{ my: 2 }} />
-
-// //                   <Box display="flex" alignItems="center" mb={1}>
-// //                     <CategoryIcon
-// //                       fontSize="small"
-// //                       color="action"
-// //                       sx={{ mr: 1 }}
-// //                     />
-// //                     <Typography variant="body2" color="text.secondary">
-// //                       {categories.find((c) => c._id === course.category_id)
-// //                         ?.name || "Uncategorized"}
-// //                     </Typography>
-// //                   </Box>
-
-// //                   <Box display="flex" alignItems="center" mb={1}>
-// //                     <MenuBookIcon
-// //                       fontSize="small"
-// //                       color="action"
-// //                       sx={{ mr: 1 }}
-// //                     />
-// //                     <Typography variant="body2" color="text.secondary">
-// //                       {course.modules?.length || 0} Modules
-// //                     </Typography>
-// //                   </Box>
-
-// //                   <Box display="flex" alignItems="center">
-// //                     <ClassIcon fontSize="small" color="action" sx={{ mr: 1 }} />
-// //                     <Typography variant="body2" color="text.secondary">
-// //                       {course.modules?.reduce(
-// //                         (acc, module) => acc + (module.lessons?.length || 0),
-// //                         0
-// //                       )}{" "}
-// //                       Lessons
-// //                     </Typography>
-// //                   </Box>
-// //                 </CardContent>
-
-// //                 <CardActions sx={{ justifyContent: "flex-end", p: 2 }}>
-// //                   <Tooltip title="View Course">
-// //                     <IconButton
-// //                       component={Link}
-// //                       to={`/instructor/courses/${course.id}`}
-// //                       size="small"
-// //                       sx={{ color: lightBlue[600] }}
-// //                     >
-// //                       <VisibilityIcon />
-// //                     </IconButton>
-// //                   </Tooltip>
-// //                   <Tooltip title="Edit Course">
-// //                     <IconButton
-// //                       onClick={() => openCourseEditDialog(course)}
-// //                       size="small"
-// //                       sx={{ color: orange[600] }}
-// //                     >
-// //                       <EditIcon />
-// //                     </IconButton>
-// //                   </Tooltip>
-// //                   <Tooltip title="Delete Course">
-// //                     <IconButton
-// //                       onClick={() => handleDelete(course.id)}
-// //                       size="small"
-// //                       sx={{ color: "error.main" }}
-// //                     >
-// //                       <DeleteIcon />
-// //                     </IconButton>
-// //                   </Tooltip>
-// //                 </CardActions>
-// //               </Card>
-// //             </Grid>
-// //           ))}
-// //         </Grid>
-// //       )}
-
-// //       {/* Edit Course Dialog */}
-// //       <Dialog
-// //         open={editDialogOpen}
-// //         onClose={closeCourseEditDialog}
-// //         maxWidth="sm"
-// //         fullWidth
-// //       >
-// //         <DialogTitle>Edit Course</DialogTitle>
-// //         <DialogContent>
-// //           <TextField
-// //             label="Title"
-// //             fullWidth
-// //             margin="normal"
-// //             value={editingCourse?.title || ""}
-// //             onChange={(e) =>
-// //               setEditingCourse({
-// //                 ...editingCourse,
-// //                 title: e.target.value,
-// //               })
-// //             }
-// //           />
-// //           <TextField
-// //             label="Description"
-// //             fullWidth
-// //             margin="normal"
-// //             multiline
-// //             minRows={3}
-// //             value={editingCourse?.description || ""}
-// //             onChange={(e) =>
-// //               setEditingCourse({
-// //                 ...editingCourse,
-// //                 description: e.target.value,
-// //               })
-// //             }
-// //           />
-// //           <TextField
-// //             select
-// //             label="Status"
-// //             fullWidth
-// //             margin="normal"
-// //             value={editingCourse?.status || ""}
-// //             onChange={(e) =>
-// //               setEditingCourse({
-// //                 ...editingCourse,
-// //                 status: e.target.value,
-// //               })
-// //             }
-// //           >
-// //             <MenuItem value="draft">Draft</MenuItem>
-// //             <MenuItem value="published">Published</MenuItem>
-// //           </TextField>
-// //         </DialogContent>
-// //         <DialogActions>
-// //           <Button onClick={closeCourseEditDialog}>Cancel</Button>
-// //           <Button
-// //             onClick={handleSaveCourse}
-// //             variant="contained"
-// //             color="primary"
-// //           >
-// //             Save Changes
-// //           </Button>
-// //         </DialogActions>
-// //       </Dialog>
-// //     </Box>
-// //   );
-// // };
-
-// // export default CourseList;
-
 // import React, { useState, useEffect } from "react";
 // import {
 //   Box,
@@ -1317,7 +26,6 @@
 //   Accordion,
 //   AccordionSummary,
 //   AccordionDetails,
-//   Avatar,
 //   Collapse,
 // } from "@mui/material";
 // import {
@@ -1330,11 +38,10 @@
 //   MenuBook as MenuBookIcon,
 //   Class as ClassIcon,
 //   ExpandMore as ExpandMoreIcon,
-//   ExpandLess as ExpandLessIcon,
 // } from "@mui/icons-material";
 // import { useSnackbar } from "notistack";
-// import InstructorService from "../../services/instructorService";
-// import { lightBlue, lightGreen, orange, grey } from "@mui/material/colors";
+// import InstructorService from "../../../services/instructorService";
+// import { lightBlue, orange, grey } from "@mui/material/colors";
 
 // const CourseList = () => {
 //   const [courses, setCourses] = useState([]);
@@ -1422,9 +129,7 @@
 //       } catch (error) {
 //         enqueueSnackbar(
 //           error.response?.data?.message || "Failed to delete course",
-//           {
-//             variant: "error",
-//           }
+//           { variant: "error" }
 //         );
 //       }
 //     }
@@ -1448,14 +153,15 @@
 //   const closeCourseViewDialog = () => {
 //     setSelectedCourse(null);
 //     setViewDialogOpen(false);
+//     setAddingModuleToCourse(null);
+//     setAddingLessonToModule(null);
 //   };
 
 //   const handleSaveCourse = async () => {
 //     try {
-//       // When editing, set status to pending for admin approval
 //       const updatedCourse = {
 //         ...editingCourse,
-//         status: "pending",
+//         status: "pending", // Automatically set to pending on edit
 //       };
 
 //       await InstructorService.updateCourse(editingCourse.id, updatedCourse);
@@ -1470,10 +176,11 @@
 //         prev.map((c) => (c.id === editingCourse.id ? updatedCourse : c))
 //       );
 //       closeCourseEditDialog();
-//     } catch (err) {
-//       enqueueSnackbar("Failed to update course", {
-//         variant: "error",
-//       });
+//     } catch (error) {
+//       enqueueSnackbar(
+//         error.response?.data?.message || "Failed to update course",
+//         { variant: "error" }
+//       );
 //     }
 //   };
 
@@ -1485,12 +192,18 @@
 //   };
 
 //   const handleAddModule = async () => {
-//     if (!newModuleName.trim()) return;
+//     if (!newModuleName.trim()) {
+//       enqueueSnackbar("Module name cannot be empty", { variant: "warning" });
+//       return;
+//     }
 
 //     try {
 //       const newModule = await InstructorService.createModule(
 //         addingModuleToCourse,
-//         { name: newModuleName }
+//         {
+//           name: newModuleName,
+//           course_id: addingModuleToCourse,
+//         }
 //       );
 
 //       enqueueSnackbar("Module added successfully", { variant: "success" });
@@ -1509,18 +222,23 @@
 //       setNewModuleName("");
 //       setAddingModuleToCourse(null);
 //     } catch (error) {
-//       enqueueSnackbar("Failed to add module", { variant: "error" });
+//       enqueueSnackbar(error.response?.data?.message || "Failed to add module", {
+//         variant: "error",
+//       });
 //     }
 //   };
 
 //   const handleAddLesson = async () => {
-//     if (!newLessonName.trim()) return;
+//     if (!newLessonName.trim()) {
+//       enqueueSnackbar("Lesson name cannot be empty", { variant: "warning" });
+//       return;
+//     }
 
 //     try {
 //       const newLesson = await InstructorService.createLesson({
 //         module_id: addingLessonToModule,
 //         title: newLessonName,
-//         content: "New lesson content",
+//         content: "New lesson content", // Required field
 //       });
 
 //       enqueueSnackbar("Lesson added successfully", { variant: "success" });
@@ -1542,12 +260,18 @@
 //       setNewLessonName("");
 //       setAddingLessonToModule(null);
 //     } catch (error) {
-//       enqueueSnackbar("Failed to add lesson", { variant: "error" });
+//       enqueueSnackbar(error.response?.data?.message || "Failed to add lesson", {
+//         variant: "error",
+//       });
 //     }
 //   };
 
 //   const handleDeleteModule = async (courseId, moduleId) => {
-//     if (window.confirm("Are you sure you want to delete this module?")) {
+//     if (
+//       window.confirm(
+//         "Are you sure you want to delete this module and all its lessons?"
+//       )
+//     ) {
 //       try {
 //         await InstructorService.deleteModule(moduleId);
 //         enqueueSnackbar("Module deleted successfully", { variant: "success" });
@@ -1565,7 +289,10 @@
 //           )
 //         );
 //       } catch (error) {
-//         enqueueSnackbar("Failed to delete module", { variant: "error" });
+//         enqueueSnackbar(
+//           error.response?.data?.message || "Failed to delete module",
+//           { variant: "error" }
+//         );
 //       }
 //     }
 //   };
@@ -1592,7 +319,10 @@
 //           }))
 //         );
 //       } catch (error) {
-//         enqueueSnackbar("Failed to delete lesson", { variant: "error" });
+//         enqueueSnackbar(
+//           error.response?.data?.message || "Failed to delete lesson",
+//           { variant: "error" }
+//         );
 //       }
 //     }
 //   };
@@ -2094,6 +824,7 @@
 // };
 
 // export default CourseList;
+
 import React, { useState, useEffect } from "react";
 import {
   Box,
@@ -2123,6 +854,9 @@ import {
   AccordionSummary,
   AccordionDetails,
   Collapse,
+  Avatar,
+  Badge,
+  useTheme,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -2134,12 +868,16 @@ import {
   MenuBook as MenuBookIcon,
   Class as ClassIcon,
   ExpandMore as ExpandMoreIcon,
+  Star as StarIcon,
+  CheckCircle as CheckCircleIcon,
+  Schedule as ScheduleIcon,
 } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
 import InstructorService from "../../../services/instructorService";
 import { lightBlue, orange, grey } from "@mui/material/colors";
 
 const CourseList = () => {
+  const theme = useTheme();
   const [courses, setCourses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -2436,6 +1174,19 @@ const CourseList = () => {
     }
   };
 
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case "published":
+        return <CheckCircleIcon fontSize="small" />;
+      case "draft":
+        return <EditIcon fontSize="small" />;
+      case "pending":
+        return <ScheduleIcon fontSize="small" />;
+      default:
+        return null;
+    }
+  };
+
   const filteredCourses = courses.filter((course) => {
     const matchesSearch = course.title
       ?.toLowerCase()
@@ -2459,26 +1210,50 @@ const CourseList = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Paper elevation={0} sx={{ p: 3, mb: 3, bgcolor: grey[50] }}>
+    <Box sx={{ p: 3, pt:15 }}>
+      <Paper
+        elevation={0}
+        sx={{
+          p: 3,
+          mb: 3,
+          background:
+            theme.palette.mode === "light"
+              ? "linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%)"
+              : "linear-gradient(135deg, #121826 0%, #1E293B 100%)",
+          borderRadius: 3,
+          border: `1px solid ${theme.palette.divider}`,
+        }}
+      >
         <Box
           display="flex"
           justifyContent="space-between"
           alignItems="center"
           mb={3}
         >
-          <Typography variant="h4" component="h1" color="primary">
-            My Courses
-          </Typography>
+          <Box>
+            <Typography
+              variant="h4"
+              component="h1"
+              fontWeight={700}
+              gutterBottom
+            >
+              My Courses
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Manage and organize your teaching materials
+            </Typography>
+          </Box>
 
           <Button
-            variant="contained"
+            variant="gradient"
             color="primary"
             startIcon={<AddIcon />}
             href="/instructor/courses/new"
             sx={{
-              bgcolor: lightBlue[600],
-              "&:hover": { bgcolor: lightBlue[700] },
+              fontWeight: 600,
+              borderRadius: 2,
+              px: 3,
+              py: 1.5,
             }}
           >
             New Course
@@ -2494,10 +1269,16 @@ const CourseList = () => {
               placeholder="Search courses..."
               InputProps={{
                 startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} />,
+                sx: {
+                  borderRadius: 2,
+                  bgcolor: "background.paper",
+                  "&:hover": {
+                    bgcolor: "background.default",
+                  },
+                },
               }}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              sx={{ bgcolor: "background.paper" }}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -2508,7 +1289,15 @@ const CourseList = () => {
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               size="small"
-              sx={{ bgcolor: "background.paper" }}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                  bgcolor: "background.paper",
+                  "&:hover": {
+                    bgcolor: "background.default",
+                  },
+                },
+              }}
             >
               <MenuItem value="">All Categories</MenuItem>
               {categories?.map((category) => (
@@ -2524,117 +1313,268 @@ const CourseList = () => {
       {filteredCourses.length === 0 ? (
         <Paper
           elevation={0}
-          sx={{ p: 4, textAlign: "center", bgcolor: grey[50] }}
+          sx={{
+            p: 4,
+            textAlign: "center",
+            borderRadius: 3,
+            bgcolor: "background.default",
+            border: `1px solid ${theme.palette.divider}`,
+          }}
         >
-          <Typography variant="h6" color="textSecondary">
-            No courses found. Create your first course to get started!
-          </Typography>
+          <Box sx={{ maxWidth: 400, mx: "auto" }}>
+            <img
+              src={
+                theme.palette.mode === "light"
+                  ? "/images/empty-state-light.svg"
+                  : "/images/empty-state-dark.svg"
+              }
+              alt="No courses"
+              style={{ width: "100%", height: "auto", marginBottom: 16 }}
+            />
+            <Typography variant="h6" gutterBottom>
+              No courses found
+            </Typography>
+            <Typography variant="body2" color="text.secondary" mb={3}>
+              Create your first course to start sharing your knowledge with
+              students
+            </Typography>
+            <Button
+              variant="gradient"
+              color="primary"
+              startIcon={<AddIcon />}
+              href="/instructor/courses/new"
+            >
+              Create Course
+            </Button>
+          </Box>
         </Paper>
       ) : (
         <Grid container spacing={3}>
           {filteredCourses.map((course) => (
-            <Grid item xs={12} md={6} lg={4} key={course.id}>
+            <Grid item xs={12} sm={6} lg={4} key={course.id}>
               <Card
-                elevation={2}
                 sx={{
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  transition: "transform 0.2s",
+                  transition: "all 0.3s ease",
+                  borderRadius: 3,
+                  border: `1px solid ${theme.palette.divider}`,
+                  boxShadow: "none",
                   "&:hover": {
-                    transform: "translateY(-4px)",
-                    boxShadow: 4,
+                    transform: "translateY(-8px)",
+                    boxShadow: theme.shadows[6],
+                    borderColor: theme.palette.primary.main,
                   },
                 }}
               >
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="flex-start"
-                    mb={2}
+                <Box
+                  sx={{
+                    height: 140,
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  {course.thumbnail ? (
+                    <Box
+                      component="img"
+                      src={course.thumbnail}
+                      alt={course.title}
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                      }}
+                      
+                    />
+                    
+                  ) : (
+                    <Box
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background:
+                          theme.palette.mode === "light"
+                            ? "linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%)"
+                            : "linear-gradient(135deg, #1E3A8A 0%, #1E40AF 100%)",
+                      }}
+                    >
+                      {/* <Avatar
+                    sx={{
+                      width: 60,
+                      height: 60,
+                      bgcolor: theme.palette.primary.main,
+                      fontSize: 24,
+                      fontWeight: 600,
+                    }}
                   >
-                    <Typography variant="h6" component="h3" gutterBottom>
-                      {course.title}
-                    </Typography>
+                    {course.title.charAt(0)}
+                  </Avatar> */}
+                    </Box>
+                  )}
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 16,
+                      right: 16,
+                    }}
+                  >
                     <Chip
+                      icon={getStatusIcon(course.status)}
                       label={course.status}
                       color={getStatusColor(course.status)}
                       size="small"
+                      sx={{
+                        fontWeight: 600,
+                        textTransform: "capitalize",
+                        borderRadius: 1,
+                      }}
                     />
                   </Box>
+                </Box>
 
-                  <Typography variant="body2" color="text.secondary" mb={2}>
-                    {course.description?.substring(0, 100) ||
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography
+                    variant="h6"
+                    component="h3"
+                    gutterBottom
+                    sx={{ fontWeight: 600 }}
+                  >
+                    {course.title}
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    mb={2}
+                    sx={{
+                      display: "-webkit-box",
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {course.description?.substring(0, 150) ||
                       "No description available."}
-                    {course.description?.length > 100 && "..."}
+                    {course.description?.length > 150 && "..."}
                   </Typography>
 
                   <Divider sx={{ my: 2 }} />
 
-                  <Box display="flex" alignItems="center" mb={1}>
-                    <CategoryIcon
-                      fontSize="small"
-                      color="action"
-                      sx={{ mr: 1 }}
-                    />
-                    <Typography variant="body2" color="text.secondary">
-                      {categories.find((c) => c._id === course.category_id)
-                        ?.name || "Uncategorized"}
-                    </Typography>
-                  </Box>
-
-                  <Box display="flex" alignItems="center" mb={1}>
-                    <MenuBookIcon
-                      fontSize="small"
-                      color="action"
-                      sx={{ mr: 1 }}
-                    />
-                    <Typography variant="body2" color="text.secondary">
-                      {course.modules?.length || 0} Modules
-                    </Typography>
-                  </Box>
-
-                  <Box display="flex" alignItems="center">
-                    <ClassIcon fontSize="small" color="action" sx={{ mr: 1 }} />
-                    <Typography variant="body2" color="text.secondary">
-                      {course.modules?.reduce(
-                        (acc, module) => acc + (module.lessons?.length || 0),
-                        0
-                      )}{" "}
-                      Lessons
-                    </Typography>
-                  </Box>
+                  <Grid container spacing={1} mb={1}>
+                    <Grid item xs={6}>
+                      <Box display="flex" alignItems="center">
+                        <CategoryIcon
+                          fontSize="small"
+                          color="action"
+                          sx={{ mr: 1 }}
+                        />
+                        <Typography variant="body2" color="text.secondary">
+                          {categories.find((c) => c._id === course.category_id)
+                            ?.name || "Uncategorized"}
+                        </Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Box display="flex" alignItems="center">
+                        <MenuBookIcon
+                          fontSize="small"
+                          color="action"
+                          sx={{ mr: 1 }}
+                        />
+                        <Typography variant="body2" color="text.secondary">
+                          {course.modules?.length || 0} Modules
+                        </Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Box display="flex" alignItems="center">
+                        <ClassIcon
+                          fontSize="small"
+                          color="action"
+                          sx={{ mr: 1 }}
+                        />
+                        <Typography variant="body2" color="text.secondary">
+                          {course.modules?.reduce(
+                            (acc, module) =>
+                              acc + (module.lessons?.length || 0),
+                            0
+                          )}{" "}
+                          Lessons
+                        </Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Box display="flex" alignItems="center">
+                        <StarIcon
+                          fontSize="small"
+                          color="action"
+                          sx={{ mr: 1 }}
+                        />
+                        <Typography variant="body2" color="text.secondary">
+                          4.8 (24)
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  </Grid>
                 </CardContent>
 
-                <CardActions sx={{ justifyContent: "flex-end", p: 2 }}>
-                  <Tooltip title="View Course">
-                    <IconButton
-                      onClick={() => openCourseViewDialog(course)}
-                      size="small"
-                      sx={{ color: lightBlue[600] }}
-                    >
-                      <VisibilityIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Edit Course">
-                    <IconButton
-                      onClick={() => openCourseEditDialog(course)}
-                      size="small"
-                      sx={{ color: orange[600] }}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Delete Course">
-                    <IconButton
-                      onClick={() => handleDelete(course.id)}
-                      size="small"
-                      sx={{ color: "error.main" }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
+                <CardActions
+                  sx={{
+                    justifyContent: "space-between",
+                    p: 2,
+                    borderTop: `1px solid ${theme.palette.divider}`,
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    startIcon={<VisibilityIcon />}
+                    onClick={() => openCourseViewDialog(course)}
+                    sx={{
+                      borderRadius: 2,
+                      px: 2,
+                    }}
+                  >
+                    View
+                  </Button>
+                  <Box>
+                    <Tooltip title="Edit Course">
+                      <IconButton
+                        onClick={() => openCourseEditDialog(course)}
+                        size="small"
+                        sx={{
+                          color: orange[600],
+                          "&:hover": {
+                            bgcolor: `${orange[50]} !important`,
+                          },
+                        }}
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete Course">
+                      <IconButton
+                        onClick={() => handleDelete(course.id)}
+                        size="small"
+                        sx={{
+                          color: "error.main",
+                          ml: 1,
+                          "&:hover": {
+                            bgcolor: "rgba(244, 67, 54, 0.08) !important",
+                          },
+                        }}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
                 </CardActions>
               </Card>
             </Grid>
@@ -2649,181 +1589,412 @@ const CourseList = () => {
         maxWidth="md"
         fullWidth
         scroll="paper"
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+            bgcolor: "background.paper",
+          },
+        }}
       >
-        <DialogTitle>
-          {selectedCourse?.title}
-          <Chip
-            label={selectedCourse?.status}
-            color={getStatusColor(selectedCourse?.status)}
-            size="small"
-            sx={{ ml: 2 }}
-          />
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography variant="body1" paragraph>
-            {selectedCourse?.description}
-          </Typography>
-
-          <Box display="flex" alignItems="center" mb={2}>
-            <CategoryIcon fontSize="small" color="action" sx={{ mr: 1 }} />
-            <Typography variant="body2" color="text.secondary">
-              Category:{" "}
-              {categories.find((c) => c._id === selectedCourse?.category_id)
-                ?.name || "Uncategorized"}
+        <DialogTitle
+          sx={{
+            bgcolor: "primary.main",
+            color: "primary.contrastText",
+            py: 2,
+            px: 3,
+            borderTopLeftRadius: 3,
+            borderTopRightRadius: 3,
+          }}
+        >
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Typography variant="h6" fontWeight={600}>
+              {selectedCourse?.title}
             </Typography>
+            <Chip
+              icon={getStatusIcon(selectedCourse?.status)}
+              label={selectedCourse?.status}
+              color={getStatusColor(selectedCourse?.status)}
+              size="medium"
+              sx={{
+                fontWeight: 600,
+                textTransform: "capitalize",
+                borderRadius: 1,
+                color: "primary.contrastText",
+                bgcolor: "rgba(255, 255, 255, 0.2)",
+              }}
+            />
           </Box>
-
-          <Divider sx={{ my: 2 }} />
-
-          <Typography variant="h6" gutterBottom>
-            Course Modules
-          </Typography>
-
-          {selectedCourse?.modules?.length === 0 ? (
-            <Typography variant="body2" color="text.secondary">
-              No modules added yet.
+        </DialogTitle>
+        <DialogContent dividers sx={{ p: 0 }}>
+          <Box sx={{ p: 3 }}>
+            <Typography variant="body1" paragraph sx={{ mb: 3 }}>
+              {selectedCourse?.description}
             </Typography>
-          ) : (
-            <List>
-              {selectedCourse?.modules?.map((module) => (
-                <Accordion
-                  key={module.id}
-                  expanded={expandedModules[module.id] || false}
-                  onChange={() => toggleModuleExpansion(module.id)}
+
+            <Grid container spacing={2} mb={3}>
+              <Grid item xs={12} md={6}>
+                <Paper
+                  elevation={0}
+                  sx={{
+                    p: 2,
+                    borderRadius: 2,
+                    bgcolor: "background.default",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
                 >
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Box
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                      width="100%"
+                  <Avatar
+                    sx={{
+                      bgcolor: "primary.light",
+                      color: "primary.main",
+                      mr: 2,
+                    }}
+                  >
+                    <CategoryIcon />
+                  </Avatar>
+                  <Box>
+                    <Typography variant="body2" color="text.secondary">
+                      Category
+                    </Typography>
+                    <Typography variant="subtitle1" fontWeight={500}>
+                      {categories.find(
+                        (c) => c._id === selectedCourse?.category_id
+                      )?.name || "Uncategorized"}
+                    </Typography>
+                  </Box>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Paper
+                  elevation={0}
+                  sx={{
+                    p: 2,
+                    borderRadius: 2,
+                    bgcolor: "background.default",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Avatar
+                    sx={{
+                      bgcolor: "secondary.light",
+                      color: "secondary.main",
+                      mr: 2,
+                    }}
+                  >
+                    <MenuBookIcon />
+                  </Avatar>
+                  <Box>
+                    <Typography variant="body2" color="text.secondary">
+                      Modules & Lessons
+                    </Typography>
+                    <Typography variant="subtitle1" fontWeight={500}>
+                      {selectedCourse?.modules?.length || 0} Modules •{" "}
+                      {selectedCourse?.modules?.reduce(
+                        (acc, module) => acc + (module.lessons?.length || 0),
+                        0
+                      )}{" "}
+                      Lessons
+                    </Typography>
+                  </Box>
+                </Paper>
+              </Grid>
+            </Grid>
+
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ mt: 3, mb: 2, fontWeight: 600 }}
+            >
+              Course Content
+            </Typography>
+
+            {selectedCourse?.modules?.length === 0 ? (
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 3,
+                  textAlign: "center",
+                  borderRadius: 2,
+                  bgcolor: "background.default",
+                }}
+              >
+                <Typography variant="body2" color="text.secondary">
+                  No modules added yet. Start by adding your first module.
+                </Typography>
+              </Paper>
+            ) : (
+              <Box
+                sx={{
+                  border: `1px solid ${theme.palette.divider}`,
+                  borderRadius: 2,
+                  overflow: "hidden",
+                }}
+              >
+                {selectedCourse?.modules?.map((module) => (
+                  <Accordion
+                    key={module.id}
+                    expanded={expandedModules[module.id] || false}
+                    onChange={() => toggleModuleExpansion(module.id)}
+                    elevation={0}
+                    sx={{
+                      "&:before": {
+                        display: "none",
+                      },
+                      "&:not(:last-child)": {
+                        borderBottom: `1px solid ${theme.palette.divider}`,
+                      },
+                    }}
+                  >
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      sx={{
+                        bgcolor: expandedModules[module.id]
+                          ? "action.hover"
+                          : "background.paper",
+                        "&:hover": {
+                          bgcolor: "action.hover",
+                        },
+                      }}
                     >
-                      <Typography>{module.name}</Typography>
-                      <Chip
-                        label={`${module.lessons?.length || 0} lessons`}
-                        size="small"
-                        variant="outlined"
-                      />
-                    </Box>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    {module.lessons?.length === 0 ? (
-                      <Typography variant="body2" color="text.secondary">
-                        No lessons in this module.
-                      </Typography>
-                    ) : (
-                      <List>
-                        {module.lessons?.map((lesson) => (
-                          <ListItem key={lesson.id}>
-                            <ListItemText primary={lesson.title} />
-                            <ListItemSecondaryAction>
-                              <IconButton
-                                edge="end"
-                                aria-label="delete"
-                                onClick={() =>
-                                  handleDeleteLesson(module.id, lesson.id)
-                                }
-                                color="error"
-                                size="small"
-                              >
-                                <DeleteIcon />
-                              </IconButton>
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        ))}
-                      </List>
-                    )}
-                    {addingLessonToModule === module.id && (
-                      <Box mt={2} display="flex" alignItems="center">
-                        <TextField
-                          fullWidth
-                          size="small"
-                          label="New Lesson Title"
-                          value={newLessonName}
-                          onChange={(e) => setNewLessonName(e.target.value)}
-                          sx={{ mr: 1 }}
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="space-between"
+                        width="100%"
+                      >
+                        <Box display="flex" alignItems="center">
+                          <MenuBookIcon
+                            fontSize="small"
+                            color="action"
+                            sx={{ mr: 2 }}
+                          />
+                          <Typography fontWeight={500}>
+                            {module.name}
+                          </Typography>
+                        </Box>
+                        <Badge
+                          badgeContent={module.lessons?.length || 0}
+                          color="primary"
+                          sx={{
+                            "& .MuiBadge-badge": {
+                              right: -8,
+                              top: 8,
+                            },
+                          }}
                         />
-                        <Button
-                          variant="contained"
-                          size="small"
-                          onClick={handleAddLesson}
+                      </Box>
+                    </AccordionSummary>
+                    <AccordionDetails
+                      sx={{ bgcolor: "background.default", p: 0 }}
+                    >
+                      {module.lessons?.length === 0 ? (
+                        <Box sx={{ p: 2, textAlign: "center" }}>
+                          <Typography variant="body2" color="text.secondary">
+                            No lessons in this module.
+                          </Typography>
+                        </Box>
+                      ) : (
+                        <List disablePadding>
+                          {module.lessons?.map((lesson) => (
+                            <ListItem
+                              key={lesson.id}
+                              sx={{
+                                px: 3,
+                                py: 1.5,
+                                borderBottom: `1px solid ${theme.palette.divider}`,
+                                "&:last-child": {
+                                  borderBottom: "none",
+                                },
+                              }}
+                            >
+                              <ListItemText
+                                primary={lesson.title}
+                                primaryTypographyProps={{ fontWeight: 500 }}
+                              />
+                              <ListItemSecondaryAction>
+                                <IconButton
+                                  edge="end"
+                                  aria-label="delete"
+                                  onClick={() =>
+                                    handleDeleteLesson(module.id, lesson.id)
+                                  }
+                                  color="error"
+                                  size="small"
+                                  sx={{
+                                    "&:hover": {
+                                      bgcolor: "rgba(244, 67, 54, 0.08)",
+                                    },
+                                  }}
+                                >
+                                  <DeleteIcon fontSize="small" />
+                                </IconButton>
+                              </ListItemSecondaryAction>
+                            </ListItem>
+                          ))}
+                        </List>
+                      )}
+                      {addingLessonToModule === module.id && (
+                        <Box
+                          p={2}
+                          borderTop={`1px solid ${theme.palette.divider}`}
                         >
-                          Add
+                          <Grid container spacing={1} alignItems="center">
+                            <Grid item xs={12} sm={8}>
+                              <TextField
+                                fullWidth
+                                size="small"
+                                label="New Lesson Title"
+                                value={newLessonName}
+                                onChange={(e) =>
+                                  setNewLessonName(e.target.value)
+                                }
+                                sx={{
+                                  "& .MuiOutlinedInput-root": {
+                                    borderRadius: 1,
+                                  },
+                                }}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={4}>
+                              <Box display="flex">
+                                <Button
+                                  variant="contained"
+                                  size="small"
+                                  onClick={handleAddLesson}
+                                  sx={{
+                                    flex: 1,
+                                    borderRadius: 1,
+                                    mr: 1,
+                                  }}
+                                >
+                                  Add
+                                </Button>
+                                <Button
+                                  variant="outlined"
+                                  size="small"
+                                  onClick={() => setAddingLessonToModule(null)}
+                                  sx={{
+                                    borderRadius: 1,
+                                  }}
+                                >
+                                  Cancel
+                                </Button>
+                              </Box>
+                            </Grid>
+                          </Grid>
+                        </Box>
+                      )}
+                      <Box p={1} display="flex" justifyContent="flex-end">
+                        <Button
+                          startIcon={<AddIcon />}
+                          size="small"
+                          onClick={() => setAddingLessonToModule(module.id)}
+                          sx={{
+                            mr: 1,
+                            borderRadius: 1,
+                          }}
+                        >
+                          Add Lesson
                         </Button>
                         <Button
+                          startIcon={<DeleteIcon />}
                           size="small"
-                          sx={{ ml: 1 }}
-                          onClick={() => setAddingLessonToModule(null)}
+                          color="error"
+                          onClick={() =>
+                            handleDeleteModule(selectedCourse.id, module.id)
+                          }
+                          sx={{
+                            borderRadius: 1,
+                          }}
                         >
-                          Cancel
+                          Delete Module
                         </Button>
                       </Box>
-                    )}
-                    <Button
-                      startIcon={<AddIcon />}
-                      size="small"
-                      sx={{ mt: 1 }}
-                      onClick={() => setAddingLessonToModule(module.id)}
-                    >
-                      Add Lesson
-                    </Button>
-                  </AccordionDetails>
-                  <Divider />
-                  <Box display="flex" justifyContent="flex-end" p={1}>
-                    <Button
-                      startIcon={<DeleteIcon />}
-                      size="small"
-                      color="error"
-                      onClick={() =>
-                        handleDeleteModule(selectedCourse.id, module.id)
-                      }
-                    >
-                      Delete Module
-                    </Button>
-                  </Box>
-                </Accordion>
-              ))}
-            </List>
-          )}
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </Box>
+            )}
 
-          {addingModuleToCourse === selectedCourse?.id && (
-            <Box mt={2} display="flex" alignItems="center">
-              <TextField
-                fullWidth
-                size="small"
-                label="New Module Name"
-                value={newModuleName}
-                onChange={(e) => setNewModuleName(e.target.value)}
-                sx={{ mr: 1 }}
-              />
-              <Button
-                variant="contained"
-                size="small"
-                onClick={handleAddModule}
+            {addingModuleToCourse === selectedCourse?.id && (
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  mt: 3,
+                  borderRadius: 2,
+                  bgcolor: "background.default",
+                }}
               >
-                Add
-              </Button>
-              <Button
-                size="small"
-                sx={{ ml: 1 }}
-                onClick={() => setAddingModuleToCourse(null)}
-              >
-                Cancel
-              </Button>
-            </Box>
-          )}
+                <Grid container spacing={1} alignItems="center">
+                  <Grid item xs={12} sm={8}>
+                    <TextField
+                      fullWidth
+                      size="small"
+                      label="New Module Name"
+                      value={newModuleName}
+                      onChange={(e) => setNewModuleName(e.target.value)}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: 1,
+                        },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <Box display="flex">
+                      <Button
+                        variant="contained"
+                        size="small"
+                        onClick={handleAddModule}
+                        sx={{
+                          flex: 1,
+                          borderRadius: 1,
+                          mr: 1,
+                        }}
+                      >
+                        Add
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => setAddingModuleToCourse(null)}
+                        sx={{
+                          borderRadius: 1,
+                        }}
+                      >
+                        Cancel
+                      </Button>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Paper>
+            )}
 
-          <Button
-            startIcon={<AddIcon />}
-            variant="outlined"
-            sx={{ mt: 2 }}
-            onClick={() => setAddingModuleToCourse(selectedCourse?.id)}
-          >
-            Add Module
-          </Button>
+            <Button
+              startIcon={<AddIcon />}
+              variant="gradient"
+              color="primary"
+              sx={{ mt: 3 }}
+              onClick={() => setAddingModuleToCourse(selectedCourse?.id)}
+            >
+              Add Module
+            </Button>
+          </Box>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={closeCourseViewDialog}>Close</Button>
+        <DialogActions sx={{ p: 2 }}>
+          <Button
+            onClick={closeCourseViewDialog}
+            variant="outlined"
+            sx={{ borderRadius: 2 }}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
 
@@ -2833,83 +2004,133 @@ const CourseList = () => {
         onClose={closeCourseEditDialog}
         maxWidth="sm"
         fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+          },
+        }}
       >
-        <DialogTitle>Edit Course</DialogTitle>
-        <DialogContent>
-          <TextField
-            label="Title"
-            fullWidth
-            margin="normal"
-            value={editingCourse?.title || ""}
-            onChange={(e) =>
-              setEditingCourse({
-                ...editingCourse,
-                title: e.target.value,
-              })
-            }
-          />
-          <TextField
-            label="Description"
-            fullWidth
-            margin="normal"
-            multiline
-            minRows={3}
-            value={editingCourse?.description || ""}
-            onChange={(e) =>
-              setEditingCourse({
-                ...editingCourse,
-                description: e.target.value,
-              })
-            }
-          />
-          <TextField
-            select
-            label="Category"
-            fullWidth
-            margin="normal"
-            value={editingCourse?.category_id || ""}
-            onChange={(e) =>
-              setEditingCourse({
-                ...editingCourse,
-                category_id: e.target.value,
-              })
-            }
-          >
-            {categories.map((category) => (
-              <MenuItem key={category._id} value={category._id}>
-                {category.name}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            select
-            label="Status"
-            fullWidth
-            margin="normal"
-            value={editingCourse?.status || ""}
-            onChange={(e) =>
-              setEditingCourse({
-                ...editingCourse,
-                status: e.target.value,
-              })
-            }
-            disabled={editingCourse?.status === "pending"}
-            helperText={
-              editingCourse?.status === "pending"
-                ? "Course is pending admin approval"
-                : "Changing status will require admin approval"
-            }
-          >
-            <MenuItem value="draft">Draft</MenuItem>
-            <MenuItem value="published">Published</MenuItem>
-          </TextField>
+        <DialogTitle
+          sx={{
+            bgcolor: "primary.main",
+            color: "primary.contrastText",
+            py: 2,
+            px: 3,
+            borderTopLeftRadius: 3,
+            borderTopRightRadius: 3,
+          }}
+        >
+          <Typography variant="h6" fontWeight={600}>
+            Edit Course
+          </Typography>
+        </DialogTitle>
+        <DialogContent sx={{ p: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="Title"
+                fullWidth
+                margin="normal"
+                value={editingCourse?.title || ""}
+                onChange={(e) =>
+                  setEditingCourse({
+                    ...editingCourse,
+                    title: e.target.value,
+                  })
+                }
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 1,
+                  },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Description"
+                fullWidth
+                margin="normal"
+                multiline
+                minRows={3}
+                value={editingCourse?.description || ""}
+                onChange={(e) =>
+                  setEditingCourse({
+                    ...editingCourse,
+                    description: e.target.value,
+                  })
+                }
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 1,
+                  },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                select
+                label="Category"
+                fullWidth
+                margin="normal"
+                value={editingCourse?.category_id || ""}
+                onChange={(e) =>
+                  setEditingCourse({
+                    ...editingCourse,
+                    category_id: e.target.value,
+                  })
+                }
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 1,
+                  },
+                }}
+              >
+                {categories.map((category) => (
+                  <MenuItem key={category._id} value={category._id}>
+                    {category.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                select
+                label="Status"
+                fullWidth
+                margin="normal"
+                value={editingCourse?.status || ""}
+                onChange={(e) =>
+                  setEditingCourse({
+                    ...editingCourse,
+                    status: e.target.value,
+                  })
+                }
+                disabled={editingCourse?.status === "pending"}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 1,
+                  },
+                }}
+              >
+                <MenuItem value="draft">Draft</MenuItem>
+                <MenuItem value="published">Published</MenuItem>
+              </TextField>
+            </Grid>
+          </Grid>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={closeCourseEditDialog}>Cancel</Button>
+        <DialogActions sx={{ p: 2 }}>
+          <Button
+            onClick={closeCourseEditDialog}
+            variant="outlined"
+            sx={{ borderRadius: 2 }}
+          >
+            Cancel
+          </Button>
           <Button
             onClick={handleSaveCourse}
-            variant="contained"
+            variant="gradient"
             color="primary"
+            sx={{ borderRadius: 2 }}
           >
             Save Changes
           </Button>

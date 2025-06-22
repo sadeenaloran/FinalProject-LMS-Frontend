@@ -16,7 +16,7 @@ import {
   MenuBook as ModuleIcon,
   PlayCircleOutline as LessonIcon,
 } from "@mui/icons-material";
-import InstructorService from "../../services/instructorService";
+import InstructorService from "../../../services/instructorService";
 
 const MyCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -28,17 +28,14 @@ const MyCourses = () => {
     const fetchCoursesWithDetails = async () => {
       try {
         setLoading(true);
-        // جلب الكورسات
         const coursesData = await InstructorService.getCourses();
 
-        // جلب modules لكل كورس
         const coursesWithModules = await Promise.all(
           coursesData.map(async (course) => {
             const modules = await InstructorService.getModulesByCourse(
               course.id
             );
 
-            // جلب lessons لكل module
             const modulesWithLessons = await Promise.all(
               modules.map(async (module) => {
                 const lessons = await InstructorService.getLessonsByModule(
