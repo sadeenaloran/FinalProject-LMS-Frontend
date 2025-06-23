@@ -777,7 +777,7 @@ const StudentDashboard = () => {
         setStatsLoading(true);
         const [allCoursesResponse, userEnrollmentsResponse] = await Promise.all(
           [
-            CourseService.getAllCourses(),
+            StudentService.getAllCourses(),
             EnrollmentService.getUserEnrollments(),
           ]
         );
@@ -905,7 +905,7 @@ const StudentDashboard = () => {
           );
 
           return (
-            <Grid item size={4} xs={12} sm={6} md={4} lg={4} key={course.id}>
+            <Grid item  size={{ xs: 12, md: 4 }} key={course.id}>
               <CourseCard
                 course={{ ...course, enrollmentId: enrollment?.id || null }}
                 isEnrolled={isEnrolled}
@@ -929,6 +929,7 @@ const StudentDashboard = () => {
             <HighlightCard sx={{ mb: 4 }}>
               <Box
                 display="flex"
+                flexWrap={"wrap"}
                 alignItems="center"
                 gap={3}
                 position="relative"
@@ -960,7 +961,7 @@ const StudentDashboard = () => {
 
             {/* Stats Cards */}
             <Grid container spacing={3} sx={{ mb: 4 }}>
-              <Grid item size={3} xs={12} sm={6} md={3}>
+              <Grid item size={{ xs: 12, md: 3 }}>
                 <StatsCard>
                   <CardContent>
                     <Box display="flex" alignItems="center" gap={2} mb={1}>
@@ -980,7 +981,7 @@ const StudentDashboard = () => {
                 </StatsCard>
               </Grid>
 
-              <Grid item size={3} xs={12} sm={6} md={3}>
+              <Grid item  size={{ xs: 12, md: 3 }}>
                 <StatsCard>
                   <CardContent>
                     <Box display="flex" alignItems="center" gap={2} mb={1}>
@@ -1004,7 +1005,7 @@ const StudentDashboard = () => {
                 </StatsCard>
               </Grid>
 
-              <Grid item size={3} xs={12} sm={6} md={3}>
+              <Grid item  size={{ xs: 12, md: 3 }}>
                 <StatsCard>
                   <CardContent>
                     <Box display="flex" alignItems="center" gap={2} mb={1}>
@@ -1028,7 +1029,7 @@ const StudentDashboard = () => {
                 </StatsCard>
               </Grid>
 
-              <Grid item size={3} xs={12} sm={6} md={3}>
+              <Grid item  size={{ xs: 12, md: 3 }}>
                 <StatsCard>
                   <CardContent>
                     <Box display="flex" alignItems="center" gap={2} mb={1}>

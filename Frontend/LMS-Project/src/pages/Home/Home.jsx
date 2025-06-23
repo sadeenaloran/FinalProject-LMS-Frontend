@@ -51,7 +51,6 @@ const Home = () => {
           container
           spacing={4}
           sx={{
-            display: "flex",
             alignItems: "center",
             pt: 10,
             px: { xs: 2, md: 8 },
@@ -61,9 +60,7 @@ const Home = () => {
           {/* Text Content - Left on large screens, bottom on small */}
           <Grid
             item
-            size={6}
-            xs={12}
-            md={6}
+            size={{ xs: 12, md: 6 }}
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -80,7 +77,7 @@ const Home = () => {
                 textAlign: { xs: "center", md: "left" },
               }}
             >
-              Welcome to Lernix Platform
+              Welcome to Lernix LMS Platform
             </Typography>
 
             <Typography
@@ -93,14 +90,15 @@ const Home = () => {
                 textAlign: { xs: "center", md: "left" },
               }}
             >
-              Transform your learning journey with our comprehensive online
-              learning management system. Access courses, track progress, and
-              achieve your educational goals.
+              Get easy to transform your learning journey with our simple
+              online learning management system.<br></br>
+              Access  courses, track your progress, and reach your
+              goals.
+              Start learning today! 
             </Typography>
 
             <Box
               sx={{
-                mt: 4,
                 display: "flex",
                 justifyContent: { xs: "center", md: "flex-start" },
                 gap: 2,
@@ -140,9 +138,7 @@ const Home = () => {
           {/* Image - Right on large screens, top on small */}
           <Grid
             item
-            size={6}
-            xs={12}
-            md={6}
+            size={{ xs: 12, md: 6 }}
             sx={{
               display: "flex",
               justifyContent: { xs: "center", md: "flex-end" },
@@ -175,7 +171,7 @@ const Home = () => {
         <Box sx={{ mt: { xs: 6, md: 20 } }}>
           <Grid container spacing={4} justifyContent="center">
             {features.map((feature, index) => (
-              <Grid item size={4} xs={12} sm={6} md={4} key={index}>
+              <Grid item size={{ xs: 12, md: 4 }} key={index}>
                 <Paper
                   elevation={3}
                   sx={{

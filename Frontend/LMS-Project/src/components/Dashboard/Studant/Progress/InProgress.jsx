@@ -571,7 +571,7 @@ const InProgressCourses = () => {
         const courseDetails = await Promise.all(
           enrollments.map(async (enrollment) => {
             const [course, progress] = await Promise.all([
-              CourseService.getCourseDetails(enrollment.course_id),
+              StudentService.getCourseDetails(enrollment.course_id),
               EnrollmentService.getProgressSummary(enrollment.course_id),
             ]);
 

@@ -648,11 +648,7 @@ const AllCoursesPage = () => {
               return (
                 <Grid
                   item
-                  size={4}
-                  xs={12}
-                  sm={12}
-                  md={6}
-                  lg={4}
+                  size={{ xs: 12, md: 4 }}
                   key={course.id}
                 >
                   <CourseCard
