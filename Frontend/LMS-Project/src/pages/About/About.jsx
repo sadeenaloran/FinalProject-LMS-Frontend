@@ -29,14 +29,14 @@ const About = () => {
       <Container maxWidth="lg" sx={{ py: 15 }}>
         <Grid container spacing={1} alignItems="center">
           {/* Image Section - Left */}
-          <Grid item size={6} xs={12} md={6} pr={4} >
+          <Grid item size={{ xs: 12, md: 6 }} pr={4} >
           <Box
             sx={{
-              borderRadius: 55,
+              borderRadius: 60,
               overflow: 'hidden',
               boxShadow: theme.shadows[4],
               height: '100%',
-              minHeight: 200,
+              minHeight: 100,
               backgroundColor: theme.palette.grey[100],
               display: 'flex',
               alignItems: 'center',
@@ -51,7 +51,7 @@ const About = () => {
         </Grid> 
 
           {/* Content Section - Right */}
-          <Grid item size={6} xs={12} md={6} alignItems="center">
+          <Grid item size={{ xs: 12, md: 6 }} alignItems="center">
             <Typography
               variant="h3"
               component="h1"
@@ -81,7 +81,7 @@ const About = () => {
 
             {/* Stats Section */}
             <Grid container spacing={2} sx={{ my: 3 }}>
-              <Grid item xs={4}>
+              <Grid item size={{ xs: 12, md: 4 }}>
                 <Box textAlign="center">
                   <Typography
                     variant="h4"
@@ -92,7 +92,7 @@ const About = () => {
                   <Typography variant="body2">Tech Domains</Typography>
                 </Box>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item size={{ xs: 12, md: 4 }}>
                 <Box textAlign="center">
                   <Typography
                     variant="h4"
@@ -103,7 +103,7 @@ const About = () => {
                   <Typography variant="body2">Developers Learning</Typography>
                 </Box>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item size={{ xs: 12, md: 4 }}>
                 <Box textAlign="center">
                   <Typography
                     variant="h4"
@@ -161,7 +161,7 @@ const About = () => {
                 desc: "Analytics to Visualization",
               },
             ].map((domain, index) => (
-              <Grid item xs={12} md={4} xl={4} key={index}>
+              <Grid item size={{ xs: 12, md: 4 }} key={index}>
                 <Box
                   sx={{
                     p: 3,
@@ -234,7 +234,7 @@ const About = () => {
                 description: "Cloud-based environments for real-world practice",
               },
             ].map((principle, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
+              <Grid item size={{ xs: 12, md: 4 }} key={index}>
                 <Box
                   sx={{
                     p: 3,
