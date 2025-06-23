@@ -1,4 +1,3 @@
-// src/components/LoginForm.jsx
 import React, { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useAuth } from "@/contexts/AuthContext";
@@ -62,24 +61,8 @@ const LoginForm = () => {
   };
 
   return (
-    <Paper
-      elevation={10}
-      sx={{
-        p: 4,
-        borderRadius: 4,
-        backdropFilter: "blur(6px)",
-        backgroundColor: (theme) =>
-          theme.palette.mode === "light"
-            ? "rgba(255,255,255,0.9)"
-            : "rgba(30,30,30,0.9)",
-        border: "1px solid",
-        borderColor: (theme) =>
-          theme.palette.mode === "light" ? "rgba(229, 231, 235, 0.5)" : "#333",
-        maxWidth: 500,
-        width: "100%",
-      }}
-    >
-      <Box textAlign="center" mb={3}>
+    <Paper>
+      <Box textAlign="center" mb={2}>
         <Box
           sx={{
             width: 64,
@@ -176,7 +159,7 @@ const LoginForm = () => {
           variant="contained"
           disabled={loading}
           sx={{
-            mt: 2,
+            mt: 1,
             py: 1,
             fontWeight: "bold",
             background: "linear-gradient(to right, #3b82f6, #2563eb)",

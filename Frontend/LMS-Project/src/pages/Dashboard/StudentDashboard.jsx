@@ -591,7 +591,7 @@ import CourseCard from "../../components/Dashboard/Studant/Courses/CourseCard";
 import EnrollmentDialog from "../../components/Dashboard/Studant/Courses/EnrollmentDialog";
 import ProgressDialog from "../../components/Dashboard/Studant/Progress/ProgressDialog";
 import StudentSidebar from "../../components/common/Sidebar/StudentSidebar";
-import CourseService from "../../services/StudentService";
+import StudentService from "../../services/StudentService";
 import EnrollmentService from "../../services/EnrollemtServices";
 // import { dashboardStyles } from "../../assets/styles/studentStyle";
 import InProgressCourses from "../../components/Dashboard/Studant/Progress/InProgress";
@@ -905,7 +905,7 @@ const StudentDashboard = () => {
           );
 
           return (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={course.id}>
+            <Grid item size={4} xs={12} sm={6} md={4} lg={4} key={course.id}>
               <CourseCard
                 course={{ ...course, enrollmentId: enrollment?.id || null }}
                 isEnrolled={isEnrolled}
@@ -960,7 +960,7 @@ const StudentDashboard = () => {
 
             {/* Stats Cards */}
             <Grid container spacing={3} sx={{ mb: 4 }}>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid item size={3} xs={12} sm={6} md={3}>
                 <StatsCard>
                   <CardContent>
                     <Box display="flex" alignItems="center" gap={2} mb={1}>
@@ -980,7 +980,7 @@ const StudentDashboard = () => {
                 </StatsCard>
               </Grid>
 
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid item size={3} xs={12} sm={6} md={3}>
                 <StatsCard>
                   <CardContent>
                     <Box display="flex" alignItems="center" gap={2} mb={1}>
@@ -1004,7 +1004,7 @@ const StudentDashboard = () => {
                 </StatsCard>
               </Grid>
 
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid item size={3} xs={12} sm={6} md={3}>
                 <StatsCard>
                   <CardContent>
                     <Box display="flex" alignItems="center" gap={2} mb={1}>
@@ -1028,7 +1028,7 @@ const StudentDashboard = () => {
                 </StatsCard>
               </Grid>
 
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid item size={3} xs={12} sm={6} md={3}>
                 <StatsCard>
                   <CardContent>
                     <Box display="flex" alignItems="center" gap={2} mb={1}>
@@ -1048,9 +1048,8 @@ const StudentDashboard = () => {
                           variant="determinate"
                           value={completionPercentage}
                           sx={{
-                            height: 6,
+                            height: 5,
                             borderRadius: 3,
-                            mt: 2,
                             backgroundColor: alpha(
                               theme.palette.primary.main,
                               0.1

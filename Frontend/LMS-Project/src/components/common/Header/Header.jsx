@@ -55,8 +55,8 @@ const Header = ({
   const open = Boolean(anchorEl);
 
   const navigationItems = [
-    { text: "Courses", link: "/courses" },
     { text: "About", link: "/about" },
+    { text: "Courses", link: "/Courses" },
     { text: "Contact", link: "/contact" },
   ];
 

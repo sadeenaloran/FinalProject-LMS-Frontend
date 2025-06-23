@@ -1,5 +1,5 @@
+import { useAuth } from "../../contexts/AuthContext";
 import React, { useEffect, useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   CircularProgress,
@@ -14,9 +14,8 @@ import {
 const GoogleAuth = () => {
   const { search } = useLocation();
   const navigate = useNavigate();
-  const { setUser } = useAuth();
   const [error, setError] = useState(null);
-
+const { setUser } = useAuth();
   useEffect(() => {
     const params = new URLSearchParams(search);
     const token = params.get("token");
@@ -31,7 +30,7 @@ const GoogleAuth = () => {
     if (token && userData.id) {
       localStorage.setItem("token", token);
       setUser(userData);
-      navigate("/dashboard");
+      navigate("/student/dashboard");
     } else {
       setError("Google authentication failed. Please try again.");
     }

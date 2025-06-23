@@ -180,7 +180,15 @@ const DashboardDefaultContent = () => {
       setError(err.message || "Failed to export report.");
     }
   };
-
+  const getRandomGradient = (index) => {
+    const gradients = [
+      `linear-gradient(135deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
+      `linear-gradient(135deg, ${theme.palette.secondary.light} 0%, ${theme.palette.secondary.main} 100%)`,
+      `linear-gradient(135deg, ${theme.palette.success.light} 0%, ${theme.palette.success.main} 100%)`,
+      `linear-gradient(135deg, ${theme.palette.info.light} 0%, ${theme.palette.info.main} 100%)`,
+    ];
+    return gradients[index % gradients.length];
+  };
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -259,12 +267,15 @@ const DashboardDefaultContent = () => {
         minHeight: "100vh",
         background: theme.palette.background.default,
         pb: 4,
+        pt:5,
       }}
     >
       {/* Header Section */}
       <Box
         sx={{
-          background: `linear-gradient(135deg, ${colors.primary} 0%, ${theme.palette.primary.dark} 100%)`,
+          // background: `linear-gradient(135deg, ${colors.primary} 0%, ${theme.palette.primary.dark} 100%)`,
+           boxShadow: theme.shadows[2],
+          background: getRandomGradient(0),
           color: "white",
           py: 6,
           px: 3,

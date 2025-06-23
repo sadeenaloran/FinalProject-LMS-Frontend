@@ -17,6 +17,8 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import Header from "@components/common/Header/Header";
 // import Footer from "@components/common/Footer/Footer";
 // import Contact from "../../assets/images/Contact"
+import AboutImage from "../../assets/images/AboutImage.png"
+
 const About = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -27,32 +29,29 @@ const About = () => {
       <Container maxWidth="lg" sx={{ py: 15 }}>
         <Grid container spacing={1} alignItems="center">
           {/* Image Section - Left */}
-          {/* <Grid item xs={12} md={6}>
+          <Grid item size={6} xs={12} md={6} pr={4} >
           <Box
             sx={{
-              borderRadius: 2,
+              borderRadius: 55,
               overflow: 'hidden',
               boxShadow: theme.shadows[4],
               height: '100%',
-              minHeight: 300,
+              minHeight: 200,
               backgroundColor: theme.palette.grey[100],
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
-            {/* Placeholder for your image - replace with your actual image component */}
-          {/* <img
+          <img
                 src={AboutImage}
                 alt="LMS aboutimage"
-                width={500}
-                height={500}
-              /> */}
-          {/* </Box>
-        </Grid>  */}
+              />
+          </Box>
+        </Grid> 
 
           {/* Content Section - Right */}
-          <Grid item xs={12} md={6} alignItems="center">
+          <Grid item size={6} xs={12} md={6} alignItems="center">
             <Typography
               variant="h3"
               component="h1"

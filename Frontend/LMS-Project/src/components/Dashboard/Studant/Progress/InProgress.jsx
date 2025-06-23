@@ -514,7 +514,7 @@ import {
   ArrowForward,
 } from "@mui/icons-material";
 import EnrollmentService from "../../../../services/EnrollemtServices";
-import CourseService from "../../../../services/CoursesService";
+import StudentService from "../../../../services/StudentService";
 
 const ProgressCard = styled(Card)(({ theme }) => ({
   height: "100%",

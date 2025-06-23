@@ -453,11 +453,13 @@ import {
 import { authService } from "../../../services/authService";
 import EditProfile from "../../../components/common/Profile/ProfileEdit";
 import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
+import { Navigate , useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const [openProfileDialog, setOpenProfileDialog] = useState(false);
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
   const [passwordOpen, setPasswordOpen] = useState(false);
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -567,14 +569,16 @@ const Settings = () => {
 
   const handleLogout = () => {
     console.log("User logged out");
+        navigate("/")
+
   };
 
   const handleContact = () => {
-    console.log("Contact clicked");
-  };
+    navigate("/Contact")
+    };
 
   const handleHelp = () => {
-    console.log("Help clicked");
+    navigate("/Contact")
   };
 
   const handleSnackbarClose = () => {

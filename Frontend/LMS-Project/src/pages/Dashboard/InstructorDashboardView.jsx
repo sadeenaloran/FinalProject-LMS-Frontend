@@ -508,7 +508,7 @@ const InstructorDashboardView = ({ onCreateCourse, onEditCourse }) => {
         ) : (
           <Grid container spacing={3}>
             {filteredCourses.map((course) => (
-              <Grid item xs={12} sm={6} xl={4} key={course._id || course.id}>
+              <Grid item size={4} xs={12} sm={6} xl={4} key={course._id || course.id}>
                 <Card
                   sx={{
                     height: "100%",

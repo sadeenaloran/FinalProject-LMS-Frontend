@@ -1261,7 +1261,7 @@ const CourseList = () => {
         </Box>
 
         <Grid container spacing={2} alignItems="center" mb={3}>
-          <Grid item xs={12} md={6}>
+          <Grid item size={4} xs={12} md={4}>
             <TextField
               fullWidth
               variant="outlined"
@@ -1281,7 +1281,7 @@ const CourseList = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item size={4} xs={12} md={4}>
             <TextField
               select
               fullWidth
