@@ -1,22 +1,11 @@
-// import api from "../api/index";
-// import { API_ENDPOINTS } from "../constants/ApiEndpoints";
-
-// const QuizService = {
-//   // Create a new quiz
-//
-// };
-
-// export default QuizService;
 import api from "../api/api";
 import { API_ENDPOINTS } from "../constants/ApiEndpoints";
 
 const QuizService = {
-  // Get quizzes for enrolled courses
-  // بدلاً من getEnrolledQuizzes، اعمل getQuizzesByLesson
   getQuizzesByLesson: async (lessonId) => {
     try {
       const response = await api.get(`/quizzes/lesson/${lessonId}`);
-      console.log("API Response:", response.data); // Debug log
+      console.log("API Response:", response.data); 
 
       return response.data.data || [];
     } catch (error) {

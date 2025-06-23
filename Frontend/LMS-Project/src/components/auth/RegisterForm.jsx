@@ -47,7 +47,7 @@ const RegisterForm = () => {
       const res = await api.post("/auth/register", formData);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      navigate("/dashboard");
+      navigate("/student/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed.");
     } finally {
@@ -60,24 +60,8 @@ const RegisterForm = () => {
   };
 
   return (
-    <Paper
-      elevation={10}
-      sx={{
-        p: 4,
-        borderRadius: 4,
-        backdropFilter: "blur(6px)",
-        backgroundColor: (theme) =>
-          theme.palette.mode === "light"
-            ? "rgba(255,255,255,0.9)"
-            : "rgba(30,30,30,0.9)",
-        border: "1px solid",
-        borderColor: (theme) =>
-          theme.palette.mode === "light" ? "rgba(229, 231, 235, 0.5)" : "#333",
-        maxWidth: 500,
-        width: "100%",
-      }}
-    >
-      <Box textAlign="center" mb={3}>
+    <Paper>
+      <Box textAlign="center" mb={2}>
         <Typography variant="h4" fontWeight="bold" color="text.primary" gutterBottom>
           Create Account
         </Typography>

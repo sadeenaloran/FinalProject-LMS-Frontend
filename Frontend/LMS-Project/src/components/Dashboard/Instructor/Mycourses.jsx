@@ -101,9 +101,9 @@ const MyCourses = () => {
       <Typography variant="h4" gutterBottom>
         My Courses
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container  spacing={3}>
         {courses.map((course) => (
-          <Grid item xs={12} key={course.id}>
+          <Grid item size={4} xs={12} key={course.id}>
             <Paper sx={{ p: 3 }}>
               <Typography variant="h6" fontWeight="bold" mb={1}>
                 {course.title}

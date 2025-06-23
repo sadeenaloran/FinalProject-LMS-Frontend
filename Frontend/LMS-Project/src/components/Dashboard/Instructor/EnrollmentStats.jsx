@@ -840,13 +840,13 @@ const CourseStatsTab = ({ courseStats }) => {
 const VisualizationsTab = ({ courseStats }) => {
   const theme = useTheme();
   return (
-    <Grid container spacing={3} sx={{display:"flex", justifyContent:"center"}}>
-      <Grid item xs={12} md={6}>
-        <GlassPaper sx={{ p: 3, height: "100%" }}>
+    <Grid container spacing={3}>
+      <Grid item size={6} xs={12} md={6}>
+        <GlassPaper sx={{ p: 3}}>
           <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
             Enrollment Distribution
           </Typography>
-          <PieChart width={600} height={500}>
+          <PieChart width={500} height={400}>
             <Pie
               data={courseStats}
               cx="50%"
@@ -881,15 +881,15 @@ const VisualizationsTab = ({ courseStats }) => {
         </GlassPaper>
       </Grid>
 
-      <Grid item xs={12} md={6}>
-        <Paper elevation={3} sx={{ p: 2, height: "100%" }}>
+      <Grid item size={6} xs={12} md={6}>
+        <Paper elevation={3} sx={{ p:2 }}>
           <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
             <ChartIcon sx={{ mr: 1, color: theme.palette.primary.main }} />
             Enrollment Comparison
           </Typography>
           <BarChart
-            width={600}
-            height={500}
+            width={500}
+            height={400}
             data={courseStats}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             sx={{color: theme.palette.primary.main}}

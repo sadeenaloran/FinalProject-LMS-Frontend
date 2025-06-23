@@ -78,7 +78,6 @@ function App() {
             <Route element={<ProtectedRoute roles={["student"]} />}>
               <Route path="/student/dashboard" element={<StudentDashboard />} />
             </Route>
-            <Route path="/unauthorized" element={<Unauthorized />} />
 
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>

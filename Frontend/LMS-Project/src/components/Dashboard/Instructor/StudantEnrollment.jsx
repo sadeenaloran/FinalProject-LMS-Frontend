@@ -889,7 +889,7 @@ const VisualizationView = () => {
             color: "info",
             delay: 300,
           },
-        ].map((stat, index) => (
+        ].map((stat) => (
           <Grid item xs={12} md={3} key={stat.label}>
             <Fade in={!loading} style={{ transitionDelay: `${stat.delay}ms` }}>
               <Card
@@ -951,16 +951,16 @@ const VisualizationView = () => {
       <Grid
         container
         spacing={4}
-        sx={{ display: "flex", justifyContent: "center" }}
+        // sx={{ display: "flex", justifyContent: "center" }}
       >
         {/* Pie Chart */}
-        <Grid item xs={12} xl={6}>
+        <Grid item size={6} xs={12} xl={6}>
           <Fade in={!loading} style={{ transitionDelay: "400ms" }}>
             <Paper
               sx={{
                 p: 5,
                 height: "500px",
-                width: "600px",
+                width: "550px",
                 background: theme.palette.background.paper,
                 border: `1px solid ${theme.palette.divider}`,
                 boxShadow: theme.shadows[2],
@@ -1068,14 +1068,14 @@ const VisualizationView = () => {
         </Grid>
 
         {/* Bar Chart */}
-        <Grid item xs={12} lg={6}>
+        <Grid item  size={6} xs={12} lg={6}>
           <Fade in={!loading} style={{ transitionDelay: "500ms" }}>
             <Paper
               elevation={0}
               sx={{
                 p: 4,
                 height: "500px",
-                width: "600px",
+                width: "550px",
                 background: theme.palette.background.paper,
                 border: `1px solid ${theme.palette.divider}`,
                 boxShadow: theme.shadows[2],

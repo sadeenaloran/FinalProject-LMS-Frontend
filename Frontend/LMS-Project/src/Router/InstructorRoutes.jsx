@@ -10,7 +10,6 @@ import StudentEnrollmentDashboard from "../components/Dashboard/Instructor/Enrol
 import AssignmentsList from "../components/Dashboard/Instructor/assignmnet/AssignmentsList";
 import QuizPage from "../components/Dashboard/Instructor/assignmnet/QuizPage";
 import StudentEnrollmentDashboardd from "../components/Dashboard/Instructor/StudantEnrollment";
-import Footer from "../components/common/Footer/Footer";
 import UserHeader from "../components/common/Header/UserHeader";
 
 const InstructorRoutes = () => {
@@ -41,7 +40,6 @@ const InstructorRoutes = () => {
       <Route path="/Quizze" element={<QuizPage />} />
       <Route path="/Visualization" element={<StudentEnrollmentDashboardd />} />
     </Routes>
-          <Footer />
 </>
   );
 };

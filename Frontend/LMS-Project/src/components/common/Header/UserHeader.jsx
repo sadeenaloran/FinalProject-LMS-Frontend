@@ -361,9 +361,9 @@ const UserHeader = ({ mode, toggleColorMode }) => {
   const open = Boolean(anchorEl);
 
   const navigationItems = [
-    { text: "Dashboard", link: "/dashboard" },
+    { text: "Home", link: "/" },
     { text: "Courses", link: "/Courses" },
-    { text: "Progress", link: "/progress" },
+    { text: "Contact", link: "/Contact" },
   ];
 
   // Fetch user data from backend (example)

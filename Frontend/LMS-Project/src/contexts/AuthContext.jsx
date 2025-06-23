@@ -1,5 +1,5 @@
 // src/contexts/AuthContext.jsx
-import React, { createContext, useContext, useReducer, useEffect } from "react";
+import React, { createContext, useContext, useReducer, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "@services/authService";
 
@@ -69,6 +69,7 @@ const initialState = {
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -99,7 +100,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await authService.login(credentials);
       localStorage.setItem("token", response.token);
-       if (response.refreshToken) {
+      if (response.refreshToken) {
         localStorage.setItem("refresh-token", response.refreshToken);
       }
       dispatch({
@@ -166,7 +167,7 @@ export const AuthProvider = ({ children }) => {
     DEFAULT_REDIRECTS,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{user, setUser, value} }>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

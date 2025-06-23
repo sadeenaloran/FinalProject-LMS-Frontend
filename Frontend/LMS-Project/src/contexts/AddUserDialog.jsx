@@ -12,7 +12,7 @@ import {
   Select,
   FormHelperText,
   IconButton,
-  CircularProgress, 
+  CircularProgress,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 import { addUserSchema } from "../shared/Validations/auth.schema";
