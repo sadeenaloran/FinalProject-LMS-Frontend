@@ -26,9 +26,9 @@ const AdminDashboard = () => {
     if (!loading && !user) {
       navigate("/login");
     }
-    if (!loading && user?.role !== "admin") {
-      navigate("/unauthorized");
-    }
+    // if (!loading && user?.role !== "admin") {
+    //   navigate("/unauthorized");
+    // }
   }, [user, loading, navigate]);
 
   const handleDrawerToggle = () => {

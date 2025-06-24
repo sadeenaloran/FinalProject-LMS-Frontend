@@ -277,10 +277,10 @@ const DashboardDefaultContent = () => {
            boxShadow: theme.shadows[2],
           background: getRandomGradient(0),
           color: "white",
-          py: 6,
+          py: 4,
           px: 3,
           borderRadius: "0 0 24px 24px",
-          mb: 4,
+          mb: 2,
           position: "relative",
           overflow: "hidden",
           "&::before": {
@@ -290,8 +290,6 @@ const DashboardDefaultContent = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            background:
-              'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="36" cy="12" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
           },
         }}
       >
@@ -350,7 +348,7 @@ const DashboardDefaultContent = () => {
       <Container maxWidth="lg">
         {/* Enhanced Stats Cards */}
         <Grid container spacing={3} sx={{mb: 6, display:"flex", justifyContent:"center"}}>
-          <Grid item xs={12} sm={6} lg={4}>
+          <Grid item size={{ xs: 12, md: 4 }}>
             <Card
               elevation={0}
               sx={{
@@ -373,13 +371,13 @@ const DashboardDefaultContent = () => {
               }}
             >
               <CardContent sx={{ p: 3, position: "relative", zIndex: 1 }}>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                <Box sx={{ display: "flex", alignItems: "center",}}>
                   <Avatar
                     sx={{
                       bgcolor: alpha("#fff", 0.2),
                       color: "white",
-                      width: 56,
-                      height: 56,
+                      width: 40,
+                      height: 40,
                       mr: 2,
                     }}
                   >
@@ -410,7 +408,7 @@ const DashboardDefaultContent = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} sm={6} lg={4}>
+          <Grid item size={{ xs: 12, md: 4 }}>
             <Card
               elevation={0}
               sx={{
@@ -432,14 +430,14 @@ const DashboardDefaultContent = () => {
                 },
               }}
             >
-              <CardContent sx={{ p: 3, position: "relative", zIndex: 1 }}>
+              <CardContent sx={{ p: 1, position: "relative", zIndex: 1 }}>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   <Avatar
                     sx={{
                       bgcolor: alpha("#fff", 0.2),
                       color: "white",
-                      width: 56,
-                      height: 56,
+                   width: 40,
+                      height: 40,
                       mr: 2,
                     }}
                   >
@@ -470,7 +468,7 @@ const DashboardDefaultContent = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} sm={6} lg={4}>
+          <Grid item size={{ xs: 12, md: 4 }}>
             <Card
               elevation={0}
               sx={{
@@ -492,14 +490,14 @@ const DashboardDefaultContent = () => {
                 },
               }}
             >
-              <CardContent sx={{ p: 3, position: "relative", zIndex: 1 }}>
+              <CardContent sx={{ p: 1, position: "relative", zIndex: 1 }}>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   <Avatar
                     sx={{
                       bgcolor: alpha("#fff", 0.2),
                       color: "white",
-                      width: 56,
-                      height: 56,
+                    width: 40,
+                      height: 40,
                       mr: 2,
                     }}
                   >
@@ -531,91 +529,6 @@ const DashboardDefaultContent = () => {
           </Grid>
         </Grid>
 
-        {/* Enhanced System Overview Chart */}
-        <Card
-          elevation={0}
-          sx={{
-            mb: 6,
-            borderRadius: 3,
-            border: "1px solid",
-            borderColor: theme.palette.divider,
-            background: theme.palette.background.paper,
-          }}
-        >
-          <CardContent sx={{ p: 4 }}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                mb: 3,
-              }}
-            >
-              <Box>
-                <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
-                  System Overview
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Platform statistics and growth metrics
-                </Typography>
-              </Box>
-              <Chip
-                label="Live Data"
-                color="success"
-                variant="outlined"
-                sx={{ borderRadius: 2 }}
-              />
-            </Box>
-            <Box sx={{ height: 350 }}>
-              {chartData.length > 0 ? (
-                <BarChart
-                  options={{
-                    ...chartOptions,
-                    plugins: {
-                      ...chartOptions.plugins,
-                      title: {
-                        display: false,
-                      },
-                    },
-                  }}
-                  data={{
-                    labels: chartData.map((item) => item.name),
-                    datasets: [
-                      {
-                        label: "Count",
-                        data: chartData.map((item) => item.count),
-                        backgroundColor: [
-                          alpha(colors.primary, 0.8),
-                          alpha(colors.secondary, 0.8),
-                          alpha(colors.success, 0.8),
-                        ],
-                        borderColor: [
-                          colors.primary,
-                          colors.secondary,
-                          colors.success,
-                        ],
-                        borderWidth: 2,
-                        borderRadius: 8,
-                        borderSkipped: false,
-                      },
-                    ],
-                  }}
-                />
-              ) : (
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100%",
-                  }}
-                >
-                  <CircularProgress sx={{ color: colors.primary }} />
-                </Box>
-              )}
-            </Box>
-          </CardContent>
-        </Card>
 
         {/* Enhanced Reports Section */}
         <Card
@@ -737,9 +650,9 @@ const DashboardDefaultContent = () => {
                 </Box>
               </Box>
             ) : (
-              <Grid container spacing={4} sx={{display:"flex", flexDirection:"column"}}>
+              <Grid container spacing={4}>
                 {/* User Activity Chart */}
-                <Grid item >
+                <Grid item  size={{ xs: 12, md: 4 }}>
                   <Paper
                     elevation={0}
                     sx={{
@@ -818,7 +731,7 @@ const DashboardDefaultContent = () => {
                 </Grid>
 
                 {/* Course Popularity Chart */}
-                <Grid item>
+                <Grid item size={{ xs: 12, md: 4 }}>
                   <Paper
                     elevation={0}
                     sx={{
@@ -891,7 +804,7 @@ const DashboardDefaultContent = () => {
                 </Grid>
 
                 {/* System Performance Chart */}
-                <Grid item>
+                <Grid item size={{ xs: 12, md: 4 }}>
                   <Paper
                     elevation={0}
                     sx={{
@@ -961,6 +874,92 @@ const DashboardDefaultContent = () => {
                 </Grid>
               </Grid>
             )}
+          </CardContent>
+        </Card>
+        
+        {/* Enhanced System Overview Chart */}
+        <Card
+          elevation={0}
+          sx={{
+            mt: 6,
+            borderRadius: 3,
+            border: "1px solid",
+            borderColor: theme.palette.divider,
+            background: theme.palette.background.paper,
+          }}
+        >
+          <CardContent sx={{ p: 4 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                mb: 3,
+              }}
+            >
+              <Box>
+                <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                  System Overview
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Platform statistics and growth metrics
+                </Typography>
+              </Box>
+              <Chip
+                label="Live Data"
+                color="success"
+                variant="outlined"
+                sx={{ borderRadius: 2 }}
+              />
+            </Box>
+            <Box sx={{ height: 350 }}>
+              {chartData.length > 0 ? (
+                <BarChart
+                  options={{
+                    ...chartOptions,
+                    plugins: {
+                      ...chartOptions.plugins,
+                      title: {
+                        display: false,
+                      },
+                    },
+                  }}
+                  data={{
+                    labels: chartData.map((item) => item.name),
+                    datasets: [
+                      {
+                        label: "Count",
+                        data: chartData.map((item) => item.count),
+                        backgroundColor: [
+                          alpha(colors.primary, 0.8),
+                          alpha(colors.secondary, 0.8),
+                          alpha(colors.success, 0.8),
+                        ],
+                        borderColor: [
+                          colors.primary,
+                          colors.secondary,
+                          colors.success,
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 8,
+                        borderSkipped: false,
+                      },
+                    ],
+                  }}
+                />
+              ) : (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <CircularProgress sx={{ color: colors.primary }} />
+                </Box>
+              )}
+            </Box>
           </CardContent>
         </Card>
       </Container>

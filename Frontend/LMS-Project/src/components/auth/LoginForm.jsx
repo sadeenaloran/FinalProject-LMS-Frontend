@@ -42,9 +42,10 @@ const LoginForm = () => {
         navigate("/admin/dashboard");
        } else if (user?.role === "instructor") {
         navigate("/instructor/dashboard");
-      } else {
-        // navigate("/unauthorized");
-      }
+       }
+      // } else {
+      //   // navigate("/unauthorized");
+      // }
     } catch (err) {
       console.error("Login error:", err);
     } finally {

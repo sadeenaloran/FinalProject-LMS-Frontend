@@ -1,4 +1,14 @@
 import { createTheme } from "@mui/material/styles";
+// const generateShadows = (light = true) => {
+//   const baseColor = light ? "rgba(26, 140, 240, 0." : "rgba(0, 0, 0, 0.";
+//   const shadows = ["none"];
+//   for (let i = 1; i <= 24; i++) {
+//     const opacity = (0.04 + i * 0.02).toFixed(2).slice(2); // 0.06 → 0.52
+//     shadows.push(`0px ${i * 2}px ${i * 2 + 2}px ${baseColor}${opacity})`);
+//   }
+//   return shadows;
+// };
+// shadows: mode === "light" ? generateShadows(true) : generateShadows(false),
 
 export const getDesignTokens = (mode) => ({
   palette: {
@@ -223,6 +233,7 @@ export const getDesignTokens = (mode) => ({
     "0px 40px 42px rgba(26, 140, 240, 0.46)",
     "0px 42px 44px rgba(26, 140, 240, 0.48)",
     "0px 44px 46px rgba(26, 140, 240, 0.50)",
+     "0px 46px 48px rgba(26, 140, 240, 0.52)",
   ] : [
     "none",
     "0px 1px 2px rgba(0, 0, 0, 0.3)",
@@ -248,6 +259,7 @@ export const getDesignTokens = (mode) => ({
     "0px 40px 42px rgba(0, 0, 0, 0.3)",
     "0px 42px 44px rgba(0, 0, 0, 0.3)",
     "0px 44px 46px rgba(0, 0, 0, 0.3)",
+     "0px 46px 48px rgba(0, 0, 0, 0.32)", 
   ],
   components: {
     MuiButton: {

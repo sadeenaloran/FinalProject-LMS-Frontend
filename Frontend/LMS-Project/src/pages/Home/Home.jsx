@@ -90,11 +90,9 @@ const Home = () => {
                 textAlign: { xs: "center", md: "left" },
               }}
             >
-              Get easy to transform your learning journey with our simple
-              online learning management system.<br></br>
-              Access  courses, track your progress, and reach your
-              goals.
-              Start learning today! 
+              Easily transform your learning journey with our simple online
+              learning management system. Access courses, track your progress,
+              and reach your goals. Start learning today!
             </Typography>
 
             <Box

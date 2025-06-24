@@ -603,7 +603,6 @@ const UserHeader = ({ mode, toggleColorMode }) => {
                       display: "flex",
                       alignItems: "center",
                       width: "100%",
-                      border: "1px solid",
                       borderColor: scrolled ? 'rgba(255,255,255,0.2)' : 'primary.100',
                       boxShadow: "none",
                       bgcolor: scrolled ? 'rgba(255,255,255,0.1)' : 'background.paper'

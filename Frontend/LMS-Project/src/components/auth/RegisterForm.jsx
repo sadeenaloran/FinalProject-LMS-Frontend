@@ -44,10 +44,16 @@ const RegisterForm = () => {
     }
 
     try {
+    //    const checkResponse = await api.get(`/auth/check-email?email=${formData.email}`);
+    // if (checkResponse.data.exists) {
+    //   setError("This email is already registered.");
+    //   setLoading(false);
+    //   return;
+    // }
       const res = await api.post("/auth/register", formData);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      navigate("/student/dashboard");
+      navigate("/login");
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed.");
     } finally {
@@ -56,7 +62,8 @@ const RegisterForm = () => {
   };
 
   const handleGoogleRegister = () => {
-    window.location.href = "/api/auth/google";
+    // window.location.href = "/api/auth/google";
+      window.location.href = "/api/auth/google?redirect=/login";
   };
 
   return (

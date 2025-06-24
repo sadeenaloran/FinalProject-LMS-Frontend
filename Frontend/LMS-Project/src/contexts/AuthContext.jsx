@@ -3,7 +3,13 @@ import React, { createContext, useContext, useReducer, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "@services/authService";
 
-const AuthContext = createContext();
+// const AuthContext = createContext();
+const AuthContext = createContext({
+  user: null,
+  setUser: () => {
+    console.warn('setUser called without provider');
+  }
+});
 
 export const DEFAULT_REDIRECTS = {
   student: "/student/dashboard",
@@ -150,12 +156,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Add setToken function
-  const setToken = (token) => {
+  const setToken = (token, user = null) => {
     localStorage.setItem("token", token);
     dispatch({
       type: "LOGIN_SUCCESS",
-      payload: { user: state.user, token }, // You may want to fetch user info here if needed
+      payload: {
+        user: user || state.user,
+        token,
+      },
     });
+  };
+// Google OAuth login function
+  const loginWithGoogle = () => {
+    const baseUrl =
+      import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+    window.location.href = `${baseUrl}/auth/google`;
   };
   const value = {
     ...state,
@@ -163,6 +178,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     register,
     setToken,
+    loginWithGoogle,
     DEFAULT_REDIRECTS,
   };
 

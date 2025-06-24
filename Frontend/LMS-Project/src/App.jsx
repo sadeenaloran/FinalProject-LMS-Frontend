@@ -8,18 +8,17 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import GoogleAuth from "@/components/auth/GoogleAuth";
 import Profile from "./components/common/Profile/Profile";
 import ProtectedRoute from "@components/common/ProtectedRoute/ProtectedRoute.jsx";
-import GoogleAuthCallback from "@components/auth/GoogleAuth.jsx";
 import Home from "@pages/Home/Home.jsx";
 import About from "@pages/About/About.jsx";
 import Contact from "@/pages/ContactUs/ContactUs";
 import AdminDashboard from "./pages/Dashboard/AdminDashboard";
 import StudentDashboard from "./pages/Dashboard/StudentDashboard";
-import Unauthorized from "./components/common/ProtectedRoute/Unauthorized";
 import LoginPage from "./pages/auth/LoginPage/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage/RegisterPage";
 import InstructorRoutes from "./Router/InstructorRoutes";
 import Footer from "./components/common/Footer/Footer";
-import AllCoursesPage from "./pages/Courses/Courses"
+import AllCoursesPage from "./pages/Courses/Courses";
+import GoogleOAuthCallback from "./components/auth/GoogleOAuthCallback";
 function App() {
   const [mode, setMode] = useState("light");
 
@@ -50,9 +49,9 @@ function App() {
             <Route path="/auth/google" element={<GoogleAuth />} />
             <Route
               path="/auth/google/callback"
-              element={<GoogleAuthCallback />}
+              element={<GoogleOAuthCallback />}
             />
-            <Route path="/auth/success" element={<GoogleAuthCallback />} />
+
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile />} />
             </Route>
