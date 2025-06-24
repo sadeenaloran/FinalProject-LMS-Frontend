@@ -812,7 +812,7 @@ const UserManagement = () => {
           flexDirection: { xs: "column", md: "row" },
           justifyContent: "space-between",
           alignItems: { md: "center" },
-          mb: 4,
+          mb: 2,
           gap: 2,
           pt:5,
 
@@ -861,7 +861,7 @@ const UserManagement = () => {
             md: "repeat(4, 1fr)",
           },
           gap: 3,
-          mb: 4,
+          mb: 2,
         }}
       >
         {[
@@ -946,8 +946,8 @@ const UserManagement = () => {
                   sx={{
                     bgcolor: "rgba(255,255,255,0.2)",
                     color: "white",
-                    width: 48,
-                    height: 48,
+                    width: 40,
+                    height: 40,
                   }}
                 >
                   {stat.icon}

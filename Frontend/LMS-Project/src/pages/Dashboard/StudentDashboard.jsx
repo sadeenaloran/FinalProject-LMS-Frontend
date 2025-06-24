@@ -1140,7 +1140,7 @@ const StudentDashboard = () => {
                   variant="scrollable"
                   scrollButtons="auto"
                 >
-                  {categories.map((category) => (
+                  {categories.map((category, ) => (
                     <Tab
                       key={category}
                       label={category}
